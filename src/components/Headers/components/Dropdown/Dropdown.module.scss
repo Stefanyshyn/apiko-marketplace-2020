@@ -1,0 +1,152 @@
+.avaratMenu{
+    width: 40px;
+    height: 38px;
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+}
+
+.avatar , .noAvatar{
+    border-radius: 50%;
+    width: 40px;
+    height: 38px;
+}
+.noAvatar{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: Helvetica;
+    font-size: 14px;
+    line-height: 40px;
+    /* identical to box height, or 286% */
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    color: rgba(19, 15, 2, 0.72);
+}
+.dropBoxAvatar{
+    z-index: 999999999999;
+    width: 204px;
+    margin: 0;
+    padding: 0;
+    .optionInfo{
+        margin-top: 9px;
+        margin-left: 16px;
+        margin-right: 9px;
+        display: flex;
+        .optionInfoAvatar{
+            width: 48px;
+            height: 45.6px;
+        }
+        .optionUserInfo{
+            max-width: 117px;
+            overflow: hidden;
+            flex:1;
+            text-transform: none;
+            overflow: hidden;
+            margin-left: 12px;
+            display: flex;
+            flex-direction: column;
+            .infoFullname{
+                font-family: Helvetica;
+                font-size: 10px;
+                line-height: 15px;
+                /* identical to box height, or 200% */
+                
+                letter-spacing: 1px;
+                
+                color: #000000;
+            }
+            .infoEmail{
+                font-family: Helvetica;
+                font-size: 10px;
+                line-height: 15px;
+                /* identical to box height, or 200% */
+                
+                letter-spacing: 1px;
+                
+                color: #979797;
+            }
+            .infoBtnProfile{
+                font-family: Helvetica;
+                font-size: 10px;
+                line-height: 15px;
+                /* or 200% */
+                
+                letter-spacing: 1px;
+                a{
+                    text-decoration: none;
+                    color: rgb(26, 126, 109) !important;
+                }
+                a:hover{
+                    text-decoration: none;
+                    color: rgb(26, 126, 109);
+                }
+                :hover{
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    .optionEditProfile{
+        :hover{
+            cursor: pointer;
+        }
+        margin-top: 19.4px;
+        margin-left: 16px;
+        margin-right: 9px;
+        margin-bottom: 15px;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 18px;
+        /* identical to box height, or 129% */
+
+        letter-spacing: 1px;
+        text-transform: uppercase;
+
+        a{
+            text-decoration: none;
+            color: rgb(26, 126, 109) !important;
+        }
+        a:hover{
+            text-decoration: none;
+            color: rgb(26, 126, 109);
+        }
+        :hover{
+            cursor: pointer;
+        }
+    }
+    .optionDelimeter{
+        height: 0px;
+        margin: 0;
+        border: 1px solid #E4E4E4;
+    }
+    .optionLogout{
+        :hover{
+            cursor: pointer;
+        }
+        margin-left: 16px;
+        margin-right: 9px;
+        .logout{
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 18px;
+            /* identical to box height, or 129% */
+
+            letter-spacing: 1px;
+            text-transform: uppercase;
+
+            color: #349A89 !important;
+        }
+    }
+}

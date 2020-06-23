@@ -1,0 +1,52 @@
+.container{
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    .content{
+        margin: 0 22px;
+        max-width: 80%;
+        .messageWrapper{
+            width: auto;
+            display: flex;
+            
+            position: relative;
+            background: #349A89;
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 15.6px;
+            line-height: 26px;
+            /* identical to box height, or 169% */
+            
+            
+            color: #FFFFFF;
+            word-break: break-all;
+
+            &::before {
+                content: "";
+                position: absolute;
+                top: 5px;
+                left: -10px;
+                border-top: 10px solid #349A89;
+                border-left: 10px solid transparent;
+                z-index: 1;
+            }
+            .message{
+                width: auto;
+                padding: 6px 12px 6px 12px;
+            }
+        }
+        .timeSend{
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: 300;
+            font-size: 13px;
+            line-height: 26px;
+            /* identical to box height, or 203% */
+
+            text-align: left;
+
+            color: #97A3B4;
+        }
+    }
+}

@@ -1,0 +1,14 @@
+{
+  "root": "build/",
+  "routes": {
+    "/**": "index.html"
+  },
+  "proxies": {
+    "/api/": {
+      "origin": "https://apiko-intensive-backend.herokuapp.com"
+    },
+    "/socket.io/": {
+      "origin": "https://apiko-intensive-backend.herokuapp.com"
+    }
+  }
+}

@@ -1,0 +1,53 @@
+.container{
+    width: 80%;
+
+    @media (max-width: 320px){
+        width: 100%;
+        margin-top: 0;
+    }
+    margin:34px auto auto auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: #FFFFFF;
+    box-shadow: 0px 2px 42px rgba(0, 0, 0, 0.111233);
+    border-radius: 7px;
+    .titleForm{
+        margin-top: 36px;
+        display: flex;
+        justify-content: center;
+
+        font-family: Helvetica;
+        font-size: 22px;
+        line-height: 25px;
+        
+        color: #282828;
+    }
+    .wrapInputs{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;
+        max-width: 664px;
+        margin: 24px 63px 0 30px;
+        @media (max-width: 600px){
+
+            padding: 0 42px 21px 30px;
+        }
+        .location, .description, .photos, .price {
+            margin-top: 24px;
+        }
+        .title, .location, .description, .photos, .price{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+    }
+    .submiButton{
+        max-width: 400px;
+        width: 50%;
+        margin: 32px 0;
+    }
+}

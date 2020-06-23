@@ -1,0 +1,41 @@
+.dropdown{
+    height: 35px;
+
+    display: flex;
+    justify-content: space-between;
+    
+    width: 285px;
+    margin-right: 23px;
+
+    background: #F9FAFB;
+    border: 1px solid #DEDEE0;
+    box-sizing: border-box;
+    border-radius: 5px;
+    font-family: Helvetica;
+    font-size: 14px;
+    line-height: 16px;
+    /* identical to box height */
+
+    letter-spacing: 0.35px;
+
+    color: #505050;
+    .left{
+        display: flex;
+        .category{
+            margin: 0 11px;
+            font-family: Helvetica;
+            font-size: 14px;
+            line-height: 16px;
+            /* identical to box height */
+
+            letter-spacing: 0.35px;
+
+            color: #505050;
+        }
+    }
+}
+@media (max-width: 680px){
+        .dropdown{
+            width: none;
+        }
+    }

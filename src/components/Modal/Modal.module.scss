@@ -1,0 +1,14 @@
+.modal{
+    min-height: 100%;
+    width: 100%;
+    flex-grow: 1;
+    &::-webkit-scrollbar {
+        width: 6px;
+        background-color: #F5F5F5;
+    }
+}
+.modalNoRefresh{
+    &::-webkit-scrollbar {
+        width: 6px;
+   }
+}

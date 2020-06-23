@@ -1,0 +1,36 @@
+.wrap{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    .label{
+        margin: 0;
+        
+        font-family: Helvetica;
+        font-size: 12px;
+        line-height: 14px;
+        /* identical to box height */
+
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+
+        color: #030303;
+    }
+    .input{
+        min-height: 58px;
+        width: 100%;
+        padding: 19px 45px 21px 13px;
+
+        font-family: Helvetica;
+        font-size: 16px;
+        line-height: 18px;
+        letter-spacing: 0.4px;
+
+        color: rgba(102, 102, 102, 0.466455);
+
+        background: #F9FAFB;
+        border: 1px solid #DEDEE0;
+        box-sizing: border-box;
+        border-radius: 5px;
+        
+    }
+}

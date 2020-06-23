@@ -1,0 +1,38 @@
+footer{
+    background: rgba(192, 196, 206, 0.127321);
+    min-height: 10.67vh;
+    max-height: 10.67vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .layoutFooterLineWrap{
+        display: flex;
+        min-height: 1.6px;
+        width: 100%;
+        justify-content: center;
+        .layoutFooterLine{
+            min-width: 72.33%;
+            mix-blend-mode: normal;
+            opacity: 0.19;
+            border: 0.8px solid #979797;
+            max-height: 0;
+        }
+    }
+    .layoutFooterCopyrightWrap{
+        display: flex;
+        flex-grow: 1;
+        margin-top:22.2px;
+        .layoutFooterCopyright{
+        
+        font-family: Font Awesome 5 Brands;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14.4px;
+        line-height: 17px;
+        /* identical to box height */
+
+
+        color: #C0C4CE;
+        }
+    }
+}

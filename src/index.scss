@@ -1,0 +1,39 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    background: #F2F2F2;
+   
+    ::-webkit-scrollbar {
+        width: 6px;
+        background-color: #F5F5F5;
+    }
+        
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+        
+    ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #349A89;
+    }
+}
+
+#root{
+    position:relative;
+    height: 100%;
+    min-height: 100vh;
+    overflow: auto;
+}
+.ReactModalPortal{
+    position: absolute;    
+    z-index: 999999999;
+}
+.grid-item {
+    margin-bottom: 10px;
+    margin: 0 auto;
+}
+.ReactVirtualized__Masonry__innerScrollContainer{
+    margin: auto;
+}

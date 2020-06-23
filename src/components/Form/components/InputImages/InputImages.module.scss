@@ -1,0 +1,40 @@
+.container{
+    width: 100%;
+    padding: 0 0 16px 16px;
+    
+    display: flex;
+    flex-wrap: wrap;
+
+    background: #F9FAFB;
+    border: 1px solid #DEDEE0;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.button{
+    position: relative;
+    height: 92px;
+    width:92px;
+
+    margin-top: 16px;
+    margin-right: 16px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: #E4E4E4;
+    border-radius: 4px;
+    img{
+        max-height: 92px;
+        max-width:92px;
+        
+        background: #E4E4E4;
+        border-radius: 4px;
+    }
+    .verticalLine{
+        position: absolute;
+        left: 25px;
+        transform: rotate(-90deg);
+    }
+}

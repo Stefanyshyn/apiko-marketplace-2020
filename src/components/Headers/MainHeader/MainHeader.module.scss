@@ -1,0 +1,103 @@
+.wrap{
+    height: 21.1%;
+    width: 100%;
+ 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+ 
+    background: linear-gradient(180deg, #090810 0%, #171236 100%);
+    .up{
+        width:80%;
+        margin-top: 18px;
+
+        display: flex;
+        justify-content: space-between;
+        .navContainer{
+            width: 100%;
+            li{
+                display: flex;
+                justify-content: flex-end;
+                list-style: none;
+            }
+            .logoIcon{
+                color: #FFFFFF;
+            }
+    
+            .layoutLeft{
+                width: 100%;
+                justify-content: flex-end;
+                align-items: center;
+                .inbox{
+                    line-height: 40px;
+                }
+                .layoutMenu{
+                    a:hover{
+                        text-decoration: none;
+                        color: rgb(26, 126, 109);
+                    }
+                    .layoutMenuSell{
+                        width:131px;
+                        height:31px;
+                        
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        
+                        margin-left: 18px;
+    
+                        border: none;
+                        
+                        background: #349A89;
+                        border-radius: 4px;
+                       
+                        .layoutMenuSellText{
+    
+                            font-family: Helvetica;
+                            font-size: 14px;
+                            line-height: 31px;
+                            /* identical to box height, or 221% */
+        
+                            text-transform: uppercase;
+                            color: #FFFFFF;
+                            
+                        }
+                    }
+                }
+                .layoutLogin{
+                    margin-left: 20px;
+    
+                    line-height: 40px;
+        
+                    .Login{
+                        font-family: Helvetica;
+                        font-size: 12px;
+                        line-height: 40px;
+                        /* identical to box height, or 333% */
+            
+                        letter-spacing: 1px;
+                        text-transform: uppercase;
+            
+                        color: rgb(190, 179, 179);
+                    }
+                }
+                .layoutHeeart{
+                    margin-left: 20px;
+                        
+                }
+            }
+        }
+
+    }
+
+    .down{
+        width: 80%;
+        margin-top: 5px;
+        margin-bottom: 14px;
+    }
+}
+.dropDorm{
+    margin: 0 !important;
+    padding: 0 !important;
+}

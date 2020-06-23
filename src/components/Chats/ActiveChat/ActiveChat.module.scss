@@ -1,0 +1,120 @@
+.container{
+    margin: 21px 0px 0px 24px ;
+
+    background: #FFFFFF;
+    box-shadow: 0px 10px 20px rgba(0, 10, 62, 0.05);
+    display: flex;
+    align-items: center;
+    .delimiterActive{
+        width: 4px;
+        height: 107px;
+        background: #349A89;
+    }
+    .ownerMsgWrapper{
+        flex:1;
+        overflow: hidden;
+        margin: 32px 10px 30px 16px ;
+        .fullName{
+            overflow: hidden;
+            max-height: 22px;
+            word-break: break-all;
+
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 22px;
+            /* identical to box height, or 147% */
+            color: #000000;
+        }
+        .messageWrapper{
+            display: flex;
+            align-items: center;
+            svg{
+                min-width: 15px;
+            }
+            .message{
+                height: 23px;
+                word-break: break-all;
+                margin-left: 4px;
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 15px;
+                line-height: 152.1%;
+                /* identical to box height, or 23px */
+                color: rgba(43, 43, 43, 0.499918);
+            }
+        }
+    }
+    .delimiter{
+        height: 36px;
+        border: 1px solid #E7E9ED;
+    }
+
+    .productWrapper{
+        margin-right: 10px;
+        margin-left: 22px;
+
+        display: flex;
+        align-items: center;
+        flex:2;
+        .iconWrapper{
+            width: 47px;
+            height: 47px;
+            display: flex;
+            align-items: center;
+                img{
+                max-width: 47px;
+                max-height: 47px;
+            }
+        }
+        .productInfoWrapper{
+            margin-left: 8px;
+            display: flex;
+            flex-direction: column;
+            .productTitle{
+                overflow: hidden;
+                max-height: 20px;
+                word-break: break-all;
+
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 15px;
+                line-height: 20px;
+                /* identical to box height, or 207% */
+                color: #000000;
+            }
+            .productPrice{
+                overflow: hidden;
+                max-height: 20px;
+                word-break: break-all;
+
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 15px;
+                line-height: 20px;
+                /* identical to box height, or 207% */
+
+
+                color: #000000;
+            }
+        }
+    }
+    .messageTimeSend{
+        width: 47px;
+        margin-right: 20px;
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 15px;
+        line-height: 152.1%;
+        /* identical to box height, or 23px */
+
+        text-align: right;
+
+        color: rgba(43, 43, 43, 0.499918);
+    }
+}

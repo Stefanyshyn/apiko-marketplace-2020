@@ -1,0 +1,27 @@
+.tab, .tabActive{
+    position: relative;
+    width: 160px;
+        
+}
+.tab{
+    height: 74px;
+    border: 1.3px solid #EEEFF1;
+    box-sizing: border-box;
+}
+.tabActive{
+    height: 82px;
+    margin:0;
+    padding: 0;
+    box-sizing: 0;
+    color: #fff !important;
+    div, span{
+        color: #fff !important;
+    }
+}
+.iconActive{
+    position: absolute;
+    top: 0;
+    width: 160px;
+    bottom: -8px;
+    z-index: -5555;
+}

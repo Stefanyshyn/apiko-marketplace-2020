@@ -1,0 +1,84 @@
+.container{
+    display: flex;
+    align-items: center;
+    flex-basis: 72px;
+
+    background: #FFFFFF;
+    .userContainer{
+        max-width: 260px;
+        display: flex;
+        align-items: center;
+        .avatar{
+            margin: 14px 16px 13px 17px; 
+        }
+        .fullName{
+            margin: 25px 16px 25px 0; 
+            max-height: 22px;
+
+            display: flex;
+            flex-direction: column;
+            word-break: break-all;
+            overflow: hidden;
+        
+            font-family: Roboto;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 15px;
+            line-height: 22px;
+            /* identical to box height, or 147% */
+            color: #131314;
+        }
+    }
+    .productContainer{
+        margin: 3px 5px 7px 0;
+
+        max-width: 212px;
+        display: flex;
+        align-items: center;
+       
+        background: #F8F8F8;
+        border-radius: 5px;
+        .infoProduct{
+            display: flex;
+            overflow: hidden;
+
+    
+            height: 62px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            .title{
+                max-height: 15px;
+
+                margin: 5px 5px 0 9px;
+                display: flex;
+                flex-direction: column;
+                word-break: break-all;
+                overflow: hidden;
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: normal;
+                font-size: 15px;
+                line-height: 15px;
+                /* identical to box height, or 207% */
+                color: #000000;
+            }
+            .price{
+                margin: 5px 5px 5px 9px;
+                max-height: 15px;
+
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 15px;
+                line-height: 15px;
+                /* identical to box height, or 207% */
+                color: #000000;
+            }
+        }
+        .shared{
+            margin: 22px 9px 22px 0;
+        }
+    }
+}
