@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import s from './AuthHeader.module.scss';
 
 import Icon from '../../../atom/Icon/Icon';
@@ -16,13 +16,21 @@ const AuthHeader = ({ isLoginForm }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   let location = useLocation();
+  let history = useHistory();
+
   const toggle = () => setIsOpen(!isOpen);
 
   return (
     <header className={s.wrapper}>
       <div className={s.container}>
         <Navbar light expand="md">
-          <NavbarBrand to={routes.home} className={s.layoutLogo}>
+          <NavbarBrand
+            to={routes.home}
+            className={s.layoutLogo}
+            onClick={() => {
+              history.push(routes.home);
+            }}
+          >
             <Icon
               className={s.layoutLogoIcon}
               name="logo"

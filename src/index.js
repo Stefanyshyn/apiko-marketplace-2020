@@ -4,12 +4,18 @@ import './index.scss';
 import App from './App';
 import { Provider } from 'react-redux';
 import store from './store/createStore';
-import test from './testFile';
-//store.subscribe(() => console.log(store.getState()));
+import {
+  Provider as MSTProvider,
+  createStore,
+} from './stores/createStore';
+
+const MSTStore = createStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <MSTProvider value={MSTStore}>
+      <App />
+    </MSTProvider>
   </Provider>,
   document.getElementById('root'),
 );

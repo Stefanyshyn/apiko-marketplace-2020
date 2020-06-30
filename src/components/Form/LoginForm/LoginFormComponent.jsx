@@ -2,26 +2,36 @@ import React from 'react';
 import style from './LoginForm.module.scss';
 import { Formik } from 'formik';
 import * as Y from 'yup';
+import { observer } from 'mobx-react';
 import PasswordInput from '../components/PasswordInput/PasswordInput';
 import ErrorInput from '../components/Error/ErrorInput';
 import Input from '../components/Input/Input';
 import ErrorForm from '../components/Error/ErrorForm';
 import SubmiButton from '../../SubmiButton/SubmiButton';
+import { useStore } from '../../../stores/createStore';
+import 'mobx-react/batchingForReactDom';
+import { useHistory } from 'react-router-dom';
+import { routes } from '../../../scenes/router';
 
 const LoginFormComponent = (props) => {
   const {
-    onSubmit,
     changeEmail,
     changePassword,
 
     email,
     password,
 
-    isLoading,
     isError,
-    errorMessage,
     handleReset,
   } = props;
+  const history = useHistory();
+  async function onSubmit({ email, password }) {
+    await store.auth.login.run({ email, password });
+    console.log('loginned');
+
+    history.push(routes.home);
+  }
+  const store = useStore();
   return (
     <Formik
       initialValues={{
@@ -37,7 +47,7 @@ const LoginFormComponent = (props) => {
           .min(8, 'Password must contain at least 8 characters')
           .required('Enter password'),
       })}
-      onSubmit={(values) => {
+      onSubmit={async (values) => {
         const body = {
           email: values.email,
           password: values.password,
@@ -93,19 +103,10 @@ const LoginFormComponent = (props) => {
           <div className={style.loginFormForgetPassword}>
             Don't remember password?
           </div>
-          {isError ? (
-            <ErrorForm>
-              {(
-                errorMessage.response.data.error[0] + ''
-              ).toUpperCase() +
-                errorMessage.response.data.error.slice(1)}
-            </ErrorForm>
-          ) : (
-            ''
-          )}
+          {isError ? <ErrorForm>Error</ErrorForm> : ''}
           <SubmiButton
             style={{ marginTop: '16px' }}
-            isLoading={isLoading}
+            isLoading={store.auth.login.isLoading}
             value="Continue"
           />
         </form>
@@ -114,4 +115,4 @@ const LoginFormComponent = (props) => {
   );
 };
 
-export default LoginFormComponent;
+export default observer(LoginFormComponent);

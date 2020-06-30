@@ -44,6 +44,7 @@
     "formik": "2.1.4",
     "http-proxy-middleware": "1.0.3",
     "mobx": "^5.15.4",
+    "mobx-react": "^6.2.2",
     "mobx-state-tree": "^3.16.0",
     "moment": "^2.25.3",
     "node-sass": "4.13.1",

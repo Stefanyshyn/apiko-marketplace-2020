@@ -32,7 +32,7 @@ const enhance = compose(
       try {
         await props.login(body);
         props.history.push(routes.home);
-        toast. success('Login Successful');
+        toast.success('Login Successful');
       } catch (err) {}
     },
     handleReset: (props) => async (resetForm) => {

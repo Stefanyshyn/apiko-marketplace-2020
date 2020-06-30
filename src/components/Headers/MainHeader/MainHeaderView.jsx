@@ -15,10 +15,10 @@ import {
   Collapse,
   NavItem,
 } from 'reactstrap';
+import { useStore } from '../../../stores/createStore';
+import { observer } from 'mobx-react';
 
 const MainHeader = ({
-  user,
-  logout,
   isSell,
   isSavedProducts,
   children,
@@ -27,6 +27,8 @@ const MainHeader = ({
   toggle,
   isOpen,
 }) => {
+  const store = useStore();
+  const user = store.viewer.user;
   const isUser = !!user;
   let location = useLocation();
   return (
@@ -72,7 +74,10 @@ const MainHeader = ({
             <NavItem>
               <div className={s.layoutLogin}>
                 {isUser ? (
-                  <Dropdown user={user} onLogout={logout} />
+                  <Dropdown
+                    user={user}
+                    onLogout={store.auth.logout}
+                  />
                 ) : (
                   <Link to={routes.login} className={s.Login}>
                     LOGIN
@@ -110,4 +115,4 @@ const MainHeader = ({
   );
 };
 
-export default MainHeader;
+export default observer(MainHeader);
