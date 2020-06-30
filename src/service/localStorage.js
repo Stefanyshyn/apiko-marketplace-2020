@@ -1,16 +1,35 @@
-export const NAME = {
+export const NAMES = {
   TOKEN: '__token__',
+  PERSIST: '__persist__',
 };
+
+//***************** TOKEN ************************************/
+
 export const getToken = () => {
-  return JSON.parse(localStorage.getItem(NAME.TOKEN));
+  return JSON.parse(localStorage.getItem(NAMES.TOKEN));
 };
 export const removeToken = () => {
-  return localStorage.removeItem(NAME.TOKEN);
+  return localStorage.removeItem(NAMES.TOKEN);
 };
 export const setToken = (data) => {
   let json = JSON.stringify(data);
-  localStorage.setItem(NAME.TOKEN, json);
+  localStorage.setItem(NAMES.TOKEN, json);
 };
+
+//***************** PERSIST ************************************/
+
+export const getPersist = () => {
+  return JSON.parse(localStorage.getItem(NAMES.PERSIST));
+};
+export const removePersist = () => {
+  return localStorage.removeItem(NAMES.PERSIST);
+};
+export const setPersist = (data) => {
+  let json = JSON.stringify(data);
+  localStorage.setItem(NAMES.PERSIST, json);
+};
+
+//***************** HINTS ************************************/
 
 export const inputHints = {
   _hints: [],
