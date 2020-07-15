@@ -4,18 +4,15 @@ import MainHeader from '../../components/Headers/MainHeader/MainHeaderContainer'
 import Footer from '../../components/Footer/Footer';
 import { v4 } from 'uuid';
 import SearchForm from '../../components/Search/SearchForm/SearchFormContainer';
-
 import { Switch, Route } from 'react-router-dom';
 import Product from '../Products/Product/ProductConatainer';
 import { routes } from '../router';
 import NotFound from '../NotFound/NotFound';
-import Spinner from '../../components/Spinner/Spinner';
 import ProductsWanted from '../Products/ProductsWanted/ProductsWantedConatainer';
-import ProductsLatest from '../Products/ProductsLatest/ProductsLatestConatainer';
+import ProductsLatest from '../Products/ProductsLatest/ProductsLatest';
 import SavedProducts from '../Products/ProductsSaved/ProductsSavedContainer';
 
-const Home = ({ fetchViewer }) => {
-  if (fetchViewer.isLoading) return <Spinner />;
+const Home = () => {
   return (
     <div className={s.container}>
       <Switch>

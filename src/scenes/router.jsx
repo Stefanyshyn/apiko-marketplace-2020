@@ -1,6 +1,11 @@
 import React, { useEffect } from 'react';
 
-import { Switch, Route, useLocation } from 'react-router-dom';
+import {
+  Switch,
+  Route,
+  useLocation,
+  Redirect,
+} from 'react-router-dom';
 
 import Home from './Home/HomeContainer';
 import Inbox from './Inbox/InboxContainer';
@@ -15,6 +20,8 @@ import { connect } from 'react-redux';
 import NoAuth from '../components/Modal/components/NoAuth';
 
 import ModalRefresh from '../components/Modal/ModalRefresh';
+import { observer } from 'mobx-react';
+import { useStore } from '../stores/createStore';
 
 export const routes = {
   home: '/',
@@ -32,6 +39,26 @@ export const routes = {
   productLatest: '/products/latest',
   savedProducts: '/products/saved',
 };
+
+export const PrivateRoute = observer(
+  ({ component: Component, ...props }) => {
+    const store = useStore();
+    console.log(store.auth.isLoggedIn);
+    return (
+      <Route
+        {...props}
+        render={(...renderProps) =>
+          store.auth.isLoggedIn ? (
+            <Redirect to={routes.home} />
+          ) : (
+            <Component {...renderProps} />
+          )
+        }
+      />
+    );
+  },
+);
+
 const Router = ({ viewer }) => {
   let location = useLocation();
 
@@ -62,7 +89,7 @@ const Router = ({ viewer }) => {
           component={AddProduct}
         />
         <Route path={routes.profile} component={Profile} />
-        <Route path={routes.auth} component={Auth} />
+        <PrivateRoute path={routes.auth} component={Auth} />
         <Route path={routes.home} component={Home} />
         <Route component={NotFound} />
       </Switch>

@@ -23,9 +23,9 @@ export const AuthStore = t
 function loginFlow({ password, email }) {
   return async (flow) => {
     let { data } = await api.auth.login({ password, email });
-    console.log('get data', data);
     api.auth.setToken(data.token);
 
+    getRoot(flow).auth.setIsLoggedIn(true);
     getRoot(flow).viewer.setViewer(data.user);
   };
 }
