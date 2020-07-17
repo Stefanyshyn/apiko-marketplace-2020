@@ -18,10 +18,14 @@ export const LatestProductsStore = types
 function fetchLatest({ limit, from }) {
   return async function fetchLatestFlow(flow, store, root) {
     const result = await api.products.getLatest({ limit, from });
-    const ids = result.data.map((product) => {
-      root.entities.products.add(product.id, product);
-      return product.id;
-    });
-    store.setItems(ids);
+    try {
+      const ids = result.data.map((product) => {
+        root.entities.products.add(product.id, product);
+        return product.id;
+      });
+      store.setItems(ids);
+    } catch (e) {
+      console.log(e);
+    }
   };
 }

@@ -16,7 +16,7 @@ export const AuthStore = t
     logout() {
       store.isLoggedIn = false;
       api.auth.logout();
-      getRoot(store).viewer.setViewer(null);
+      getRoot(store).viewer.setViewer(undefined);
     },
   }));
 

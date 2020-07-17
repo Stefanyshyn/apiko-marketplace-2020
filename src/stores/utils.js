@@ -4,6 +4,9 @@ import {
   applySnapshot,
   getParent,
   getRoot,
+  isStateTreeNode,
+  getIdentifier,
+  resolveIdentifier,
 } from 'mobx-state-tree';
 import { setPersist, getPersist } from '../service/localStorage';
 export function asyncModel(thunk, auto = true) {
@@ -54,10 +57,10 @@ export function createPersist(store) {
     setPersist({
       auth: { isLoggedIn: snapshot.auth.isLoggedIn },
       viewer: { user: snapshot.viewer.user },
-      latestProducts: {
-        items: snapshot.latestProducts.items,
-      },
-      entities: snapshot.entities,
+      // latestProducts: {
+      //   items: snapshot.latestProducts.items,
+      // },
+      //      entities: snapshot.entities,
     });
   });
 
@@ -78,6 +81,11 @@ export function createCollection(ofModel, asyncModel = {}) {
       collection: types.map(ofModel),
       ...asyncModel,
     })
+    .views((store) => ({
+      get(key) {
+        return store.collection.get(String(key));
+      },
+    }))
     .actions((store) => ({
       add(key, value) {
         store.collection.set(String(key), value);
@@ -85,4 +93,18 @@ export function createCollection(ofModel, asyncModel = {}) {
     }));
 
   return types.optional(collection, {});
+}
+
+export function safeReference(T) {
+  return types.reference(T, {
+    get(identifier, parent) {
+      if (isStateTreeNode(identifier)) {
+        identifier = getIdentifier(identifier);
+      }
+      return resolveIdentifier(T, parent, identifier);
+    },
+    set(value) {
+      return value;
+    },
+  });
 }

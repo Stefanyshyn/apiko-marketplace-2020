@@ -1,15 +1,15 @@
 import { types } from 'mobx-state-tree';
 import { UserModel } from './UserModel';
+import { safeReference } from './utils';
+
+const ViewerModel = UserModel.named('ViewerStore');
 
 export const ViewerStore = types
   .model('ViewerStore', {
-    user: types.maybe(UserModel),
+    user: types.maybe(ViewerModel),
   })
   .actions((store) => ({
-    setViewer(userObject) {
-      if (userObject) {
-        const userModel = UserModel.create(userObject);
-        store.user = userModel;
-      } else store.user = undefined;
+    setViewer(user) {
+      store.user = user;
     },
   }));
