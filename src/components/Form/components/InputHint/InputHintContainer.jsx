@@ -25,7 +25,6 @@ const enhancer = compose(
   }),
   withHandlers({
     clearHints: (props) => () => {
-      debugger;
       inputHints.clearHints({ nameHistory: props.nameHistory });
 
       props.setHints((_hints) => []);

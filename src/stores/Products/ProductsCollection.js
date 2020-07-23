@@ -1,5 +1,7 @@
 import api from '../../service/api';
 import { useStore } from '../createStore';
+import { normalize } from 'normalizr';
+import { Product } from '../schemas';
 
 const { createCollection, asyncModel } = require('../utils');
 const { ProductModel } = require('./ProductModel');
@@ -15,15 +17,9 @@ export const ProductsCollection = createCollection(ProductModel, {
 
 function fetchProduct(id) {
   return async function fetchProductFlow(flow, store, root) {
-    try {
-      const { data: product } = await api.products.getProduct(id);
-      root.entities.users.add(product.owner.id, product.owner);
-      store.add(product.id, {
-        ...product,
-        owner: product.owner.id,
-      });
-    } catch (err) {
-      console.log(err);
-    }
+    const { data: product } = await api.products.getProduct(id);
+
+    const { entities } = normalize(product, Product);
+    root.entities.merge(entities);
   };
 }

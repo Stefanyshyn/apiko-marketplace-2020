@@ -9,6 +9,7 @@ import {
   resolveIdentifier,
 } from 'mobx-state-tree';
 import { setPersist, getPersist } from '../service/localStorage';
+import { normalize } from 'normalizr';
 export function asyncModel(thunk, auto = true) {
   const model = types
     .model('AsyncModel', {
@@ -37,6 +38,11 @@ export function asyncModel(thunk, auto = true) {
           return store._auto(promise);
         }
         return promise;
+      },
+      merge(data, schema) {
+        const { entities, result } = normalize(data, schema);
+        getRoot(store).entities.merge(entities);
+        return result;
       },
       async _auto(promise) {
         try {

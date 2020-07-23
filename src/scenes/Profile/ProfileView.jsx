@@ -10,6 +10,8 @@ import { Switch, Route } from 'react-router-dom';
 import Tab from '../../components/Tab/Tab';
 import ProductsList from '../../components/Product/ProductList/ProductListContainer';
 import Avatar from '../../components/Avatar/Avatar';
+import { observer } from 'mobx-react';
+import { useStore } from '../../stores/createStore';
 
 const Profile = ({
   user,
@@ -20,6 +22,7 @@ const Profile = ({
   ...props
 }) => {
   const [activeTab, setActiveTab] = useState(3);
+
   const onClick = (number) => (event) => {
     setActiveTab(number);
   };
@@ -92,4 +95,4 @@ const Profile = ({
   );
 };
 
-export default Profile;
+export default observer(Profile);

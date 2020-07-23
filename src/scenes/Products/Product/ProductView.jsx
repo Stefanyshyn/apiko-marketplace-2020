@@ -3,6 +3,7 @@ import s from './Product.module.scss';
 import { useRouteMatch } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { useProductsCollection } from '../../../stores/Products/ProductsCollection';
+import ProductExpandView from '../../../components/Product/ProductExpand/ProductExpandContainer';
 
 const Product = () => {
   const { params } = useRouteMatch();
@@ -21,10 +22,7 @@ const Product = () => {
   if (!product) return <div className={s.container}>no found</div>;
   return (
     <div className={s.container}>
-      <div>{product.title}</div>
-      <div>
-        {product.owner ? product.owner.fullName : 'loading...'}
-      </div>
+      <ProductExpandView></ProductExpandView>
     </div>
   );
 };
