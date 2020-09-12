@@ -1,37 +1,46 @@
 import React from 'react';
+import confirm from 'reactstrap-confirm';
 import style from './LoginForm.module.scss';
 import { Formik } from 'formik';
 import * as Y from 'yup';
 import { observer } from 'mobx-react';
-import PasswordInput from '../components/PasswordInput/PasswordInput';
-import ErrorInput from '../components/Error/ErrorInput';
-import Input from '../components/Input/Input';
-import ErrorForm from '../components/Error/ErrorForm';
-import SubmiButton from '../../SubmiButton/SubmiButton';
-import { useStore } from '../../../stores/createStore';
+import PasswordInput from '../../../../../components/Form/components/PasswordInput/PasswordInput';
+import ErrorInput from '../../../../../components/Form/components/Error/ErrorInput';
+import Input from '../../../../../components/Form/components/Input/Input';
+import ErrorForm from '../../../../../components/Form/components/Error/ErrorForm';
+import SubmiButton from '../../../../../components/SubmiButton/SubmiButton';
 import 'mobx-react/batchingForReactDom';
 import { useHistory } from 'react-router-dom';
-import { routes } from '../../../scenes/router';
+import { routes } from '../../../../router';
+import { useLogin } from '../../../../../stores/auth/LoginStore';
 
-const LoginFormComponent = (props) => {
-  const {
-    changeEmail,
-    changePassword,
-
-    email,
-    password,
-
-    isError,
-    handleReset,
-  } = props;
+const LoginFormComponent = function () {
   const history = useHistory();
-  async function onSubmit({ email, password }) {
-    await store.auth.login.run({ email, password });
-    console.log('loginned');
+  const login = useLogin();
+  const email = login.email;
+  const password = login.password;
+  const { isError, isLoading } = login.loginFlow;
 
-    history.push(routes.home);
+  const handleReset = async (resetForm) => {
+    let result = await confirm({
+      message: 'Reset?',
+      confirmText: 'Confirm',
+      confirmColor: 'warning',
+      cancelColor: 'link text-danger',
+    });
+    if (result) {
+      login.reset();
+      resetForm();
+    }
+  };
+
+  async function onSubmit({ email, password }) {
+    await login.loginFlow.run({ email, password });
+    if (isError) {
+      login.reset();
+      history.push(routes.home);
+    }
   }
-  const store = useStore();
   return (
     <Formik
       initialValues={{
@@ -75,7 +84,7 @@ const LoginFormComponent = (props) => {
               field={{
                 ...formik.getFieldProps('email'),
                 onChange: (event) => {
-                  changeEmail(event.target.value);
+                  login.setEmail(event.target.value);
                   formik.handleChange(event);
                 },
               }}
@@ -91,7 +100,7 @@ const LoginFormComponent = (props) => {
               field={{
                 ...formik.getFieldProps('password'),
                 onChange: (event) => {
-                  changePassword(event.target.value);
+                  login.setPassword(event.target.value);
                   formik.handleChange(event);
                 },
               }}
@@ -103,10 +112,14 @@ const LoginFormComponent = (props) => {
           <div className={style.loginFormForgetPassword}>
             Don't remember password?
           </div>
-          {isError ? <ErrorForm>Error</ErrorForm> : ''}
+          {isError ? (
+            <ErrorForm>Invalid email/password combination</ErrorForm>
+          ) : (
+            ''
+          )}
           <SubmiButton
             style={{ marginTop: '16px' }}
-            isLoading={store.auth.login.isLoading}
+            isLoading={isLoading}
             value="Continue"
           />
         </form>

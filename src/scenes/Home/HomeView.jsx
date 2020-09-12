@@ -1,11 +1,11 @@
 import React from 'react';
 import s from './Home.module.scss';
-import MainHeader from '../../components/Headers/MainHeader/MainHeaderContainer';
+import MainHeader from '../../components/Headers/MainHeader/MainHeaderView';
 import Footer from '../../components/Footer/Footer';
 import { v4 } from 'uuid';
-import SearchForm from '../../components/Search/SearchForm/SearchFormContainer';
+import SearchForm from '../../components/Search/SearchForm/SearchFormView';
 import { Switch, Route } from 'react-router-dom';
-import Product from '../Products/Product/ProductConatainer';
+import ProductView from '../Products/Product/ProductView/ProductView';
 import { routes } from '../router';
 import NotFound from '../NotFound/NotFound';
 import ProductsWanted from '../Products/ProductsWanted/ProductsWantedConatainer';
@@ -51,7 +51,11 @@ const Home = () => {
             path={routes.savedProducts}
             component={SavedProducts}
           />
-          <Route exact path={routes.product} component={Product} />
+          <Route
+            exact
+            path={routes.product}
+            component={ProductView}
+          />
           <Route component={NotFound} />
         </Switch>
       </div>

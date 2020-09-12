@@ -1,10 +1,19 @@
 import React from 'react';
 
-import style from './Error.module.scss';
+import s from './Error.module.scss';
 
-const ErrorForm = ({ children, ...props }) => {
+const ErrorForm = ({ children, style, ...props }) => {
   return (
-    <div {...props} className={style.errorForm}>
+    <div
+      {...props}
+      style={{
+        background: '#F0F0F0',
+        borderRadius: '10px',
+        padding: '10px 5px',
+        ...style,
+      }}
+      className={s.errorForm}
+    >
       {children}
     </div>
   );

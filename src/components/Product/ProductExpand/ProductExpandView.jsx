@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import moment from 'moment';
 import s from './ProductExpand.module.scss';
 import { Media } from 'reactstrap';
@@ -8,6 +8,7 @@ import Owner from '../../User/Owner/Owner';
 import Modal from 'react-modal';
 import ContactSellerModalView from '../../Modal/ContactSeller/ContactSellerContainer';
 import NoAuth from '../../Modal/components/NoAuth';
+import { observer } from 'mobx-react';
 
 Modal.setAppElement('#root');
 
@@ -34,6 +35,10 @@ const ProductExpandView = ({
   onSave,
   onDeleteSaved,
 }) => {
+  useEffect(() => {
+    //if(!product.owner)
+    //   product.fetchOwner();
+  });
   return (
     <div className={s.container}>
       <div className={s.containerProduct}>
@@ -130,4 +135,4 @@ const ProductExpandView = ({
   );
 };
 
-export default ProductExpandView;
+export default observer(ProductExpandView);

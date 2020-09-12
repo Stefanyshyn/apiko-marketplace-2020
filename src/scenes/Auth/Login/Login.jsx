@@ -2,7 +2,7 @@ import React from 'react';
 import s from './Login.module.scss';
 import Footer from '../../../components/Footer/Footer';
 import AuthHeader from '../../../components/Headers/AuthHeader/AuthHeader';
-import LoginForm from '../../../components/Form/LoginForm/LoginFormContainer';
+import LoginForm from './components/LoginForm/LoginForm';
 import RedirectBox from '../../../components/Form/components/RedirectBox/RedirectBox';
 import { routes } from '../../router';
 

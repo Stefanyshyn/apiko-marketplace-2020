@@ -4,6 +4,8 @@ import { asyncModel } from '../utils';
 import api from '../../service/api';
 import { LatestProductColllection } from '../schemas';
 import { normalize } from 'normalizr';
+import { useStore } from '../createStore';
+
 export const LatestProductsStore = types
   .model('LatestProductsStore', {
     items: types.array(types.reference(ProductModel)),
@@ -24,6 +26,12 @@ function fetchLatest({ limit, from }) {
       LatestProductColllection,
     );
     root.entities.merge(normalizedData.entities);
+
     store.setItems(normalizedData.result);
   };
+}
+
+export function useLatestProductsStore() {
+  const store = useStore();
+  return store.products.latestProducts;
 }

@@ -1,5 +1,4 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
 import s from './Tab.module.scss';
 import Icon from '../../atom/Icon/Icon';
 

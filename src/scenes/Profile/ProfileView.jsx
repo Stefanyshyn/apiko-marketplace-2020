@@ -2,16 +2,15 @@ import React, { useState } from 'react';
 import { Spinner, Media } from 'reactstrap';
 
 import s from './Profile.module.scss';
-import MainHeader from '../../components/Headers/MainHeader/MainHeaderContainer';
+import MainHeader from '../../components/Headers/MainHeader/MainHeaderView';
 import Footer from '../../components/Footer/Footer';
 
-import SearchForm from '../../components/Search/SearchForm/SearchFormContainer';
+import SearchForm from '../../components/Search/SearchForm/SearchFormView';
 import { Switch, Route } from 'react-router-dom';
 import Tab from '../../components/Tab/Tab';
-import ProductsList from '../../components/Product/ProductList/ProductListContainer';
+import ProductsList from '../../components/Product/ProductList/ProductListView';
 import Avatar from '../../components/Avatar/Avatar';
 import { observer } from 'mobx-react';
-import { useStore } from '../../stores/createStore';
 
 const Profile = ({
   user,

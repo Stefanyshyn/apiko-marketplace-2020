@@ -1,5 +1,4 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
 import s from './NoAuth.module.scss';
 import { Link } from 'react-router-dom';
 import { routes } from '../../../scenes/router';

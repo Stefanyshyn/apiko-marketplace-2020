@@ -11,7 +11,6 @@ import { GetWantedProductsOperations } from '../../../models/products/getProduct
 import ProductsWantedView from './ProductsWantedView';
 
 const mapStateToProps = (state) => {
-  console.log(state.products);
   return {
     products: ProductSelectors.getWantedProducts(state),
     hasNextProducts:

@@ -1,5 +1,4 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
 import s from './Select.module.scss';
 import Icon from '../../../../atom/Icon/Icon';
 import {

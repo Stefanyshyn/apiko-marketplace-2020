@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './AddProduct.module.scss';
-import MainHeader from '../../components/Headers/MainHeader/MainHeaderContainer';
+import MainHeader from '../../components/Headers/MainHeader/MainHeaderView';
 import Footer from '../../components/Footer/Footer';
 
 import AddProductForm from '../../components/Form/AddProduct/AddProductContainer';

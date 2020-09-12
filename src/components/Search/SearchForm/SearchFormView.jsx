@@ -1,12 +1,11 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
 import style from './SearchForm.module.scss';
 import Icon from '../../../atom/Icon/Icon';
 import { Formik } from 'formik';
 import yup from '../../../utils/yup';
 
 import InputWithHistoryView from '../../Form/components/InputWithHistory/InputWithHistoryView';
-import { historyName } from './SearchFormContainer';
+const historyName = 'history';
 
 const SearchFormView = ({ height, onSubmit }) => {
   return (

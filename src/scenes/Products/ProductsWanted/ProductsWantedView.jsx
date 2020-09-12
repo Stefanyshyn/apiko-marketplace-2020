@@ -1,8 +1,8 @@
 import React from 'react';
 import s from './ProductsWanted.module.scss';
 import Spinner from '../../../components/Spinner/Spinner';
-import ProductList from '../../../components/Product/ProductList/ProductListContainer';
-import SortForm from '../../../components/Search/SortForm/SortFormContainer';
+import ProductList from '../../../components/Product/ProductList/ProductListView';
+import SortForm from '../../../components/Search/SortForm/SortFormView';
 
 const ProductsWanted = ({
   products,

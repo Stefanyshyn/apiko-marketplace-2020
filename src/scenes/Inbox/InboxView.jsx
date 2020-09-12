@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import s from './Inbox.module.scss';
 import { Redirect } from 'react-router-dom';
 
-import MainHeader from '../../components/Headers/MainHeader/MainHeaderContainer';
+import MainHeader from '../../components/Headers/MainHeader/MainHeaderView';
 import Footer from '../../components/Footer/Footer';
 import ChatList from '../../components/Chats/ChatList/ChatListContainer';
 import MessageList from '../../components/Messages/MessageList/MessageListContainer';

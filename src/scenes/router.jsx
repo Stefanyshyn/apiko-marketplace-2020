@@ -7,7 +7,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 
-import Home from './Home/HomeContainer';
+import Home from './Home/HomeView';
 import Inbox from './Inbox/InboxContainer';
 import NotFound from './NotFound/NotFound';
 import Auth from './Auth/Auth';
@@ -15,13 +15,12 @@ import EditProfile from './EditProfile/EditProfile';
 import AddProduct from './AddProduct/AddProductContainer';
 import Profile from './Profile/ProfileContainer';
 import AddProductForm from '../components/Form/AddProduct/AddProductContainer';
-import { ViewerSelectors } from '../models/viewer';
-import { connect } from 'react-redux';
 import NoAuth from '../components/Modal/components/NoAuth';
 
 import ModalRefresh from '../components/Modal/ModalRefresh';
 import { observer } from 'mobx-react';
 import { useStore } from '../stores/createStore';
+import api from '../service/api';
 
 export const routes = {
   home: '/',
@@ -43,7 +42,6 @@ export const routes = {
 export const PrivateRoute = observer(
   ({ component: Component, ...props }) => {
     const store = useStore();
-    console.log(store.auth.isLoggedIn);
     return (
       <Route
         {...props}
@@ -67,6 +65,10 @@ const Router = ({ viewer }) => {
       window.history.pushState(null, '');
     }
   }, [location.state]);
+
+  useEffect(() => {
+    api.init();
+  });
 
   let background = location.state && location.state.background;
 
@@ -112,9 +114,5 @@ const Router = ({ viewer }) => {
     </>
   );
 };
-const mapStateToProps = (state) => {
-  return {
-    viewer: ViewerSelectors.getCurrentUser(state),
-  };
-};
-export default connect(mapStateToProps)(Router);
+
+export default observer(Router);

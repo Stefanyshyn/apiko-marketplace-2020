@@ -1,5 +1,4 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
 import s from './Avatar.module.scss';
 import { Media } from 'reactstrap';
 import color from '../../utils/color';

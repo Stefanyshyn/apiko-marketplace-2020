@@ -10,7 +10,7 @@ import {
   CellMeasurerCache,
   Masonry,
 } from 'react-virtualized';
-import Product from '../Product/ProductContainer';
+import Product from '../../../scenes/Products/components/BriefProductInfo/BriefProductInfo';
 
 class ProductList extends Component {
   constructor(props) {

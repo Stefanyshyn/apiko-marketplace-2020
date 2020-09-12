@@ -1,43 +1,42 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import s from './ProductsLatest.module.scss';
 import Spinner from '../../../components/Spinner/Spinner';
-import ProductList from '../../../components/Product/ProductList/ProductListContainer';
-import { useStore } from '../../../stores/createStore';
+import ProductList from '../../../components/Product/ProductList/ProductListView';
 import { observer } from 'mobx-react';
-import {} from '../../../components/Spinner/Spinner';
+import { useLatestProductsStore } from '../../../stores/Products/LatestProdutsStore';
 
 const limit = 20;
 
-const ProductsLatestView = ({
-  hasNextProducts,
-  isNextProductsLoading,
-}) => {
+function ProductsLatest() {
   const [from, setFrom] = useState(undefined);
 
-  const store = useStore();
-  const products = store.latestProducts.items;
+  const latestProducts = useLatestProductsStore();
+  const products = latestProducts.items;
+  const isNextProductsLoading = latestProducts.fetchLatest.isLoading;
 
   useEffect(() => {
-    store.latestProducts.fetchLatest.run({ limit, from });
+    latestProducts.fetchLatest.run({ limit, from });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [from]);
 
   const loadNextProduct = useCallback(async () => {
     if (products?.length !== 0)
       setFrom(products[products?.length - 1].id);
-    await store.latestProducts.fetchLatest({ from: from, limit });
+    await latestProducts.fetchLatest({ from: from, limit });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [from]);
 
   const loadMoreItems = isNextProductsLoading
     ? () => {}
     : loadNextProduct;
+
   return (
     <div className={s.container}>
       {products.length !== 0 ? (
         <ProductList
           products={products}
-          hasNextProducts={hasNextProducts}
+          // hasNextProducts={hasNextProducts}
+          hasNextProducts={true}
           isNextProductsLoading={isNextProductsLoading}
           loadNextProduct={loadNextProduct}
         />
@@ -61,6 +60,6 @@ const ProductsLatestView = ({
       )}
     </div>
   );
-};
+}
 
-export default observer(ProductsLatestView);
+export default observer(ProductsLatest);

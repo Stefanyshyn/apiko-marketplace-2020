@@ -66,7 +66,10 @@ export function createPersist(store) {
       // latestProducts: {
       //   items: snapshot.latestProducts.items,
       // },
-      //      entities: snapshot.entities,
+      entities: {
+        products: snapshot.entities.products,
+      },
+      //snapshot.entities,
     });
   });
 

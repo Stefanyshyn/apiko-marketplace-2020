@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './/ProductsSaved.module.scss';
 import Spinner from '../../../components/Spinner/Spinner';
-import ProductList from '../../../components/Product/ProductList/ProductListContainer';
+import ProductList from '../../../components/Product/ProductList/ProductListView';
 
 const ProductsSavedView = ({
   products,

@@ -1,5 +1,4 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.css';
 import s from './MessageHeader.module.scss';
 import Avatar from '../../Avatar/Avatar';
 import Icon from '../../../atom/Icon/Icon';

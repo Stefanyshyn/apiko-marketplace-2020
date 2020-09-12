@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
-import { Provider } from 'react-redux';
-import store from './store/createStore';
 import {
   Provider as MSTProvider,
   createStore,
@@ -12,10 +10,8 @@ import {
 const MSTStore = createStore();
 
 ReactDOM.render(
-  <Provider store={store}>
-    <MSTProvider value={MSTStore}>
-      <App />
-    </MSTProvider>
-  </Provider>,
+  <MSTProvider value={MSTStore}>
+    <App />
+  </MSTProvider>,
   document.getElementById('root'),
 );

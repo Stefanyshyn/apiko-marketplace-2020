@@ -18,7 +18,6 @@ export const RootStore = t
         let result = await api.user.getCurrentUser();
         if (!result) return;
         store.viewer.setViewer(result.data);
-        api.init();
       } catch (err) {
         store.auth.logout();
       }

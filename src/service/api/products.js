@@ -20,6 +20,7 @@ const products = {
   },
 
   async getLatest({ from, limit }) {
+    this.init();
     let url = `${urls.getLatest}?limit=${limit}`;
 
     if (from) url += `&from=${from}`;
@@ -28,9 +29,11 @@ const products = {
   },
 
   async getUserProducts(id) {
+    this.init();
     return axios.get(urls.getUserProducts(id));
   },
   async getProductsByFilter(body) {
+    this.init();
     return axios.get(
       urls.getProductsByFilter +
         '?' +
@@ -40,6 +43,7 @@ const products = {
     );
   },
   async getSaved(body) {
+    this.init();
     return axios.get(
       urls.getSaved +
         '?' +
@@ -50,7 +54,8 @@ const products = {
   },
 
   async save(id) {
-    this.init();
+    products.init();
+
     return axios.post(urls.save(id));
   },
 
@@ -66,6 +71,7 @@ const products = {
   },
 
   async getProduct(id) {
+    this.init();
     return axios.get(urls.getProduct(id));
   },
 

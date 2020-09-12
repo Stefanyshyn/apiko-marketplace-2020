@@ -3,6 +3,7 @@ import { ProductModel } from '../Products/ProductModel';
 import { asyncModel } from '../utils';
 import api from '../../service/api';
 import { OwnProductCollecition } from '../schemas';
+import { useStore } from '../createStore';
 
 export const OwnProductsStore = types
   .model('OwnProductsStore', {
@@ -23,4 +24,9 @@ function fetchOwnProducts(userId) {
     const ids = flow.merge(result.data, OwnProductCollecition);
     store.setItems(ids);
   };
+}
+
+export function useOwnProductsStore() {
+  const store = useStore();
+  return store.products.ownProducts;
 }
