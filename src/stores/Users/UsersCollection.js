@@ -3,6 +3,7 @@ import { createCollection, asyncModel } from '../utils';
 import { UserModel } from './UserModel';
 import api from '../../service/api';
 import { User } from '../schemas';
+import { normalize } from 'normalizr';
 
 export function useUsersCollection() {
   const store = useStore();
@@ -15,8 +16,9 @@ export const UsersCollection = createCollection(UserModel, {
 
 function fetchById(id) {
   return async function fetchByIdFlow(flow, store, root) {
-    const result = await api.user.getUser(id);
+    const { data: user } = await api.user.getUser(id);
 
-    store.merge(result.data, User);
+    const { entities } = normalize(user, User);
+    root.entities.merge(entities);
   };
 }

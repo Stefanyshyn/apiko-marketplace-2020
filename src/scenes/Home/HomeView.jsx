@@ -5,7 +5,7 @@ import Footer from '../../components/Footer/Footer';
 import { v4 } from 'uuid';
 import SearchForm from '../../components/Search/SearchForm/SearchFormView';
 import { Switch, Route } from 'react-router-dom';
-import ProductView from '../Products/Product/ProductView/ProductView';
+import ProductView from '../Products/Product/ProductView';
 import { routes } from '../router';
 import NotFound from '../NotFound/NotFound';
 import ProductsWanted from '../Products/ProductsWanted/ProductsWantedConatainer';

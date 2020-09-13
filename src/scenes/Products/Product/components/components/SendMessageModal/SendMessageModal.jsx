@@ -1,7 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import Modal from 'react-modal';
-import s from './SendMessageButton.module.scss';
 import ContactSellerModalView from '../../../../../../components/Modal/ContactSeller/ContactSellerView';
 import NoAuth from '../../../../../../components/Modal/components/NoAuth';
 import { useViewer } from '../../../../../../stores/ViewerStore';
@@ -20,13 +19,13 @@ const styleModal = {
   },
 };
 
-const SendMessageButton = ({ product, isOpen, setOpen }) => {
+const SendMessageModal = ({ product, isOpen, setOpen }) => {
   const viewer = useViewer();
 
   return (
     <Modal
       style={styleModal}
-      onRequestClose={() => setOpen(false)}
+      onRequestClose={setOpen.bind(null, [false])}
       isOpen={isOpen}
     >
       {viewer ? (
@@ -41,4 +40,4 @@ const SendMessageButton = ({ product, isOpen, setOpen }) => {
   );
 };
 
-export default observer(SendMessageButton);
+export default observer(SendMessageModal);

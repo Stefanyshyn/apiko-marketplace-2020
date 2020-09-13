@@ -29,11 +29,11 @@ const products = {
   },
 
   async getUserProducts(id) {
-    this.init();
+    products.init();
     return axios.get(urls.getUserProducts(id));
   },
   async getProductsByFilter(body) {
-    this.init();
+    products.init();
     return axios.get(
       urls.getProductsByFilter +
         '?' +
@@ -43,7 +43,7 @@ const products = {
     );
   },
   async getSaved(body) {
-    this.init();
+    products.init();
     return axios.get(
       urls.getSaved +
         '?' +
@@ -52,7 +52,6 @@ const products = {
           .join('&'),
     );
   },
-
   async save(id) {
     products.init();
 
@@ -60,18 +59,18 @@ const products = {
   },
 
   async deleteSaved(id) {
-    this.init();
+    products.init();
     return axios.delete(urls.deleteSaved(id));
   },
 
   async add(body) {
-    this.init();
+    products.init();
 
     return axios.post(urls.add, body);
   },
 
   async getProduct(id) {
-    this.init();
+    products.init();
     return axios.get(urls.getProduct(id));
   },
 

@@ -9,7 +9,7 @@ class SocketApi {
     });
 
     this.socket.on('connect', () => {
-      console.log('Connected');
+      // console.log('Connected');
     });
   }
 

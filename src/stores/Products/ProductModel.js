@@ -25,8 +25,7 @@ export const ProductModel = types
   }))
   .actions((store) => ({
     fetchOwner() {
-      getRoot(store).entities.user.fetchById.run(store.ownerId);
-
+      getRoot(store).entities.users.fetchById.run(store.ownerId);
       store.owner = store.ownerId;
     },
     setSaved(value) {
@@ -36,16 +35,16 @@ export const ProductModel = types
 
 function save() {
   return async function saveFlow(flow, store, root) {
-    saved(flow, store)(api.products.save);
+    _saved(flow, store)(api.products.save);
   };
 }
 function unsave() {
   return async function unsaveFlow(flow, store, root) {
-    saved(flow, store)(api.products.deleteSaved);
+    _saved(flow, store)(api.products.deleteSaved);
   };
 }
 
-function saved(flow, store) {
+function _saved(flow, store) {
   return async (handlerSaved) => {
     store.setSaved(!store.saved);
     await handlerSaved(store.id);

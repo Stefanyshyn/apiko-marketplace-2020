@@ -13,10 +13,8 @@
             margin-top: 10px;
         }
     }
-
     margin-bottom: 15px;
     margin-top: 20px;
-
 }
 .containerProduct{
     display: flex;
@@ -133,66 +131,66 @@
 }
 .containerOwner{
     flex: 2;
-    .chatBtn{
-        cursor: pointer;
-        height: 47px;
-        margin-top: 18px;
+}
+.chatBtn{
+    cursor: pointer;
+    height: 47px;
+    margin-top: 18px;
 
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-        background: #349A89;
-        border-radius: 4px;
+    background: #349A89;
+    border-radius: 4px;
 
-        font-family: Helvetica;
-        font-size: 14px;
-        line-height: 31px;
-        /* identical to box height, or 221% */
+    font-family: Helvetica;
+    font-size: 14px;
+    line-height: 31px;
+    /* identical to box height, or 221% */
 
-        text-transform: uppercase;
+    text-transform: uppercase;
 
-        color: #FFFFFF;
+    color: #FFFFFF;
+}
+.noSavedProduct{
+    svg{
+        flex:0;
+        
     }
-    .noSavedProduct{
-        svg{
-            flex:0;
-           
-        }
+}
+.savedProduct, .noSavedProduct{
+    cursor: pointer;
+    margin-top: 19px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    background: #FFFFFF;
+    border: 1px solid #349A89;
+    box-sizing: border-box;
+    border-radius: 4px;
+    
+    font-family: Helvetica;
+    font-size: 14px;
+    line-height: 31px;
+    /* identical to box height, or 221% */
+    
+    text-transform: uppercase;
+    
+    color: #535353;
+    
+    svg{
+        width: 18.34px;
+        min-width:17px;
+        margin: 16px 14px;
+
     }
-    .savedProduct, .noSavedProduct{
-        cursor: pointer;
-        margin-top: 19px;
-       
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        
-        background: #FFFFFF;
-        border: 1px solid #349A89;
-        box-sizing: border-box;
-        border-radius: 4px;
-        
-        font-family: Helvetica;
-        font-size: 14px;
-        line-height: 31px;
-        /* identical to box height, or 221% */
-        
-        text-transform: uppercase;
-        
-        color: #535353;
-        
-        svg{
-         width: 18.34px;
-         min-width:17px;
-         margin: 16px 14px;
- 
-        }
-        .titleBtnSave{
-            flex: 1;
-            margin-top:8px;
-            margin-bottom:8px;
-            text-align: center;
-        }
+    .titleBtnSave{
+        flex: 1;
+        margin-top:8px;
+        margin-bottom:8px;
+        text-align: center;
     }
 }

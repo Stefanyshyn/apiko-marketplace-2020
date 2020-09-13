@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import s from './ContactSeller.module.scss';
 import { Media } from 'reactstrap';
@@ -6,7 +6,6 @@ import SubmiButton from '../../SubmiButton/SubmiButton';
 import ErrorForm from '../../Form/components/Error/ErrorForm';
 
 function ContactSellerModalView({
-  owner,
   product,
   onClose,
   text,
@@ -14,6 +13,11 @@ function ContactSellerModalView({
   onSubmit,
   fetchSend,
 }) {
+  const owner = product.owner;
+  useEffect(() => {
+    if (!product.fetchOwner.isLoading && !owner)
+      product.fetchOwner.run();
+  });
   let disabled =
     String(text).trim().length === 0 || fetchSend.isLoading;
   return (

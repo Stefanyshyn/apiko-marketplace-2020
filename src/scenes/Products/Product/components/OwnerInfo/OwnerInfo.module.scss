@@ -1,4 +1,6 @@
 .container{
+    min-width: 150px;
+
     position: relative;
     display: flex;
     flex-direction: column;
@@ -50,4 +52,34 @@
 
         color: rgba(43, 43, 43, 0.499918);
     }
+}
+
+
+.chatBtn{
+    cursor: pointer;
+    height: 47px;
+    margin-top: 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #349A89;
+    border-radius: 4px;
+
+    font-family: Helvetica;
+    font-size: 14px;
+    line-height: 31px;
+    /* identical to box height, or 221% */
+
+    text-transform: uppercase;
+
+    color: #FFFFFF;
+}
+
+.spinnerWrapper{ 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 131px;
 }
