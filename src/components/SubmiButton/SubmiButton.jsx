@@ -1,6 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import s from './SubmiButton.module.scss';
+import Spinner from '../Spinner/Spinner';
 
 const SubmiButton = ({
   value,
@@ -19,7 +20,7 @@ const SubmiButton = ({
         className={s.button + ' ' + className}
         type="submit"
         disabled={isLoading || disabled ? 'disabled' : ''}
-        value={isLoading ? 'isLoading...' : value}
+        value={isLoading ? <Spinner /> : value}
         {...props}
       />
     </div>

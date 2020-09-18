@@ -1,7 +1,8 @@
-import { types, getRoot } from 'mobx-state-tree';
+import { types, getRoot, getSnapshot } from 'mobx-state-tree';
 import { UserModel } from '../Users/UserModel';
 import { safeReference, asyncModel } from '../utils';
 import api from '../../service/api';
+import { Chat } from '../schemas';
 
 export const ProductModel = types
   .model('ProductModel', {
@@ -15,9 +16,14 @@ export const ProductModel = types
     saved: false,
     createdAt: types.string,
     updatedAt: types.string,
+
+    chatId: types.maybe(types.number),
     owner: types.maybe(types.late(() => safeReference(UserModel))),
+
     save: asyncModel(save),
     unsave: asyncModel(unsave),
+
+    createChat: asyncModel(createChat, false),
   })
   .preProcessSnapshot((snapshot) => ({
     ...snapshot,
@@ -41,6 +47,31 @@ function save() {
 function unsave() {
   return async function unsaveFlow(flow, store, root) {
     _saved(flow, store)(api.products.deleteSaved);
+  };
+}
+
+function createChat(message) {
+  return async function fetchChatsFlow(flow, store) {
+    let chatId;
+    try {
+      flow.start();
+
+      const { data: chat } = await api.chats.createChat(
+        store.id,
+        message,
+      );
+      chatId = chat.id;
+      store.chatId = chat.id;
+      chat.participants = [getSnapshot(store.owner)];
+
+      flow.merge(chat, Chat);
+
+      flow.success();
+    } catch (err) {
+      flow.error(err);
+      throw err;
+    }
+    return chatId;
   };
 }
 

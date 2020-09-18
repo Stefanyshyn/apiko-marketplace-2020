@@ -15,11 +15,13 @@ export function asyncModel(thunk, auto = true) {
     .model('AsyncModel', {
       isLoading: false,
       isError: false,
+      err: '',
     })
     .actions((store) => ({
       start() {
         store.isLoading = true;
         store.isError = false;
+        store.err = '';
       },
       success() {
         store.isLoading = false;
@@ -27,6 +29,9 @@ export function asyncModel(thunk, auto = true) {
       error(err) {
         store.isLoading = false;
         store.isError = true;
+        store.err = String(
+          err.response.data.message || err.response.data.error,
+        );
       },
       run(...args) {
         const promise = thunk(...args)(

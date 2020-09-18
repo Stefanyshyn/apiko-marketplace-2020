@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { observer } from 'mobx-react';
 import Modal from 'react-modal';
-import ContactSellerModalView from '../../../../../../components/Modal/ContactSeller/ContactSellerView';
+import ContactSeller from './components/ContactSeller/ContactSeller';
 import NoAuth from '../../../../../../components/Modal/components/NoAuth';
 import { useViewer } from '../../../../../../stores/ViewerStore';
 
@@ -21,18 +21,20 @@ const styleModal = {
 
 const SendMessageModal = ({ product, isOpen, setOpen }) => {
   const viewer = useViewer();
-
+  const onClose = useCallback(() => {
+    setOpen(false);
+  }, []);
   return (
     <Modal
       style={styleModal}
-      onRequestClose={setOpen.bind(null, [false])}
+      onRequestClose={onClose}
       isOpen={isOpen}
     >
       {viewer ? (
-        <ContactSellerModalView
+        <ContactSeller
           product={product}
-          onClose={setOpen}
-        ></ContactSellerModalView>
+          onClose={onClose}
+        ></ContactSeller>
       ) : (
         <NoAuth />
       )}

@@ -6,7 +6,7 @@ import { Media } from 'reactstrap';
 import Icon from '../../../../../atom/Icon/Icon';
 import { isValid } from '../../../../../utils/url';
 import OwnerInfo from '../OwnerInfo/OwnerInfo';
-import SavedProductButton from '../OwnerInfo/SavedProductButton/SavedProductButton';
+import SavedProductButton from '../components/SavedProductButton/SavedProductButton';
 import SendMessageModal from '../components/SendMessageModal/SendMessageModal';
 
 const ProductInfo = ({ product }) => {
@@ -30,9 +30,7 @@ const ProductInfo = ({ product }) => {
             )}
             <div className={s.priceWrapper}>
               <div className={s.price}>
-                {product.price < 0
-                  ? product.price * -1
-                  : product.price}
+                {product.price < 0 ? -product.price : product.price}
               </div>
             </div>
           </div>
@@ -56,7 +54,7 @@ const ProductInfo = ({ product }) => {
         </div>
         <div className={s.containerOwner}>
           <OwnerInfo product={product} />
-          <div className={s.chatBtn} onClick={(e) => setOpen(true)}>
+          <div className={s.chatBtn} onClick={() => setOpen(true)}>
             Chat with seller
           </div>
           <SavedProductButton

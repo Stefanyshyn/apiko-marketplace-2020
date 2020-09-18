@@ -11,8 +11,6 @@ const Product = () => {
   const products = useProductsCollection();
   const product = products.get(params.id);
 
-  console.log(JSON.stringify(product.owner));
-
   useEffect(() => {
     if (!product) {
       products.fetchProduct.run(params.id);
