@@ -13,7 +13,7 @@ const products = {
     this._setTokenToAxios(token);
   },
 
-  async getMessages({ chatId, limit, from }) {
+  async fetchMessages(chatId, limit, from) {
     this.init();
     let url = urls.getMessages(chatId) + `?limit=${limit}`;
     if (from) url += `&from=${from}`;

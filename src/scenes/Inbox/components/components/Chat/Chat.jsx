@@ -1,22 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import s from './ActiveChat.module.scss';
-import Icon from '../../../atom/Icon/Icon';
-import { isValid } from '../../../utils/url';
+import s from './Chat.module.scss';
 import { Media } from 'reactstrap';
 import moment from 'moment';
+import Icon from '../../../../../atom/Icon/Icon';
+import { isValid } from '../../../../../utils/url';
+import { useUsersCollection } from '../../../../../stores/Users/UsersCollection';
+import { useProductsCollection } from '../../../../../stores/Products/ProductsCollection';
+import { observer } from 'mobx-react';
 
-const ActiveChat = ({
-  owner,
-  chat,
-  product,
-  onClickChat,
-  fetchUser,
-}) => {
+const Chat = ({ chat, onClickChat }) => {
+  const products = useProductsCollection();
+  const users = useUsersCollection();
+  const user = chat.user;
+  const product = chat.product;
+  const fetchUser = users.fetchById;
+  const owner = users.get(chat.ownerId);
+
+  useEffect(() => {
+    if (!product) {
+      products.fetchProduct.run(chat.productId);
+      if (!user) users.fetchById.run(chat.ownerId);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div className={s.container} onClick={onClickChat}>
-      <div className={s.delimiterActive}></div>
-
       <div className={s.ownerMsgWrapper}>
         <div className={s.fullName}>
           {fetchUser.isLoading || !owner
@@ -63,4 +72,4 @@ const ActiveChat = ({
   );
 };
 
-export default ActiveChat;
+export default observer(Chat);

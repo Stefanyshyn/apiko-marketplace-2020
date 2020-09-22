@@ -2,7 +2,7 @@ import { compose, withHandlers, lifecycle } from 'recompose';
 import { connect } from 'react-redux';
 import { withRouter, generatePath } from 'react-router-dom';
 
-import ChatView from './ChatView';
+import ChatView from './Chat';
 import { routes } from '../../../scenes/router';
 
 import { UsersOperations } from '../../../models/users';

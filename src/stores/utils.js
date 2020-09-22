@@ -30,7 +30,7 @@ export function asyncModel(thunk, auto = true) {
         store.isLoading = false;
         store.isError = true;
         store.err = String(
-          err.response.data.message || err.response.data.error,
+          err?.response?.data?.message || err?.response?.data?.error,
         );
       },
       run(...args) {
@@ -99,10 +99,17 @@ export function createCollection(ofModel, asyncModel = {}) {
       get(key) {
         return store.collection.get(String(key));
       },
+      has(id) {
+        return store.collection.has(id);
+      },
     }))
     .actions((store) => ({
       add(key, value) {
         store.collection.set(String(key), value);
+      },
+      update(key, value) {
+        const item = store.collection.get(key);
+        Object.assign(item, value);
       },
     }));
 

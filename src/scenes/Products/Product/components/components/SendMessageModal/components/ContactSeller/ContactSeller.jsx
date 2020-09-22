@@ -34,11 +34,11 @@ function ContactSellerModalView({ product, onClose }) {
         const chatId = await product.createChat.run(message);
         history.push(generatePath(routes.inboxChat, { chatId }));
       } catch (err) {
-        console.log(JSON.stringify(err));
+        //  console.log(JSON.stringify(err));
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [product, message]
+    [product, message],
   );
 
   return (

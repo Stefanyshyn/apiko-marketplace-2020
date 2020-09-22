@@ -2,8 +2,9 @@ import React from 'react';
 
 import s from './OwnerMessage.module.scss';
 import moment from 'moment';
+import { observer } from 'mobx-react';
 
-const OwnerMessageView = ({ message, ...props }) => {
+const OwnerMessage = ({ message, ...props }) => {
   return (
     <div className={s.container} {...props}>
       <div className={s.content}>
@@ -18,4 +19,4 @@ const OwnerMessageView = ({ message, ...props }) => {
   );
 };
 
-export default OwnerMessageView;
+export default observer(OwnerMessage);

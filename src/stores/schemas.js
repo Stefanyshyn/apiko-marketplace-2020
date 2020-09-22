@@ -14,15 +14,15 @@ export const OwnProductCollecition = [OwnProduct];
 export const LatestProduct = new schema.Entity('products');
 export const LatestProductColllection = [LatestProduct];
 
-export const Message = new schema.Entity('chats');
-export const MessagesCollection = [Message];
+export const MessageSchema = new schema.Entity('messages');
+export const MessageCollectionSchema = [MessageSchema];
 
-export const Chat = new schema.Entity('chats', {
-  message: Message,
+export const ChatSchema = new schema.Entity('chats', {
+  message: MessageSchema,
   product: Product,
   participants: [User],
 });
-export const ChatCollection = [Chat];
+export const ChatCollectionSchema = [ChatSchema];
 
 // import { schema } from 'normalizr';
 

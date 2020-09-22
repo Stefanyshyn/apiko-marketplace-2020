@@ -1,32 +1,27 @@
-import { types } from 'mobx-state-tree';
+import { getParent, types } from 'mobx-state-tree';
 import { ProductModel } from '../Products/ProductModel';
 import { asyncModel } from '../utils';
 import api from '../../service/api';
 import { OwnProductCollecition } from '../schemas';
-import { useStore } from '../createStore';
 
 export const OwnProductsStore = types
   .model('OwnProductsStore', {
-    items: types.array(
-      types.reference(types.late(() => ProductModel)),
+    items: types.maybeNull(
+      types.array(types.reference(types.late(() => ProductModel))),
     ),
-    fetchOwnProducts: asyncModel(fetchOwnProducts),
+    fetch: asyncModel(fetchOwnProducts),
   })
   .actions((store) => ({
     setItems(value) {
       store.items = value;
     },
   }));
-function fetchOwnProducts(userId) {
-  return async function fetchOwnProductsFlow(flow, store, root) {
-    const result = await api.products.getUserProducts(userId);
-
-    const ids = flow.merge(result.data, OwnProductCollecition);
+function fetchOwnProducts() {
+  return async function fetchOwnProductsFlow(flow, store) {
+    const {
+      data: { list },
+    } = await api.products.getUserProducts(getParent(store).id);
+    const ids = flow.merge(list, OwnProductCollecition);
     store.setItems(ids);
   };
-}
-
-export function useOwnProductsStore() {
-  const store = useStore();
-  return store.products.ownProducts;
 }

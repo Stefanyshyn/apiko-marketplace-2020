@@ -1,11 +1,13 @@
 import React from 'react';
 import s from './MessageHeader.module.scss';
-import Avatar from '../../Avatar/Avatar';
-import Icon from '../../../atom/Icon/Icon';
 
 import { Spinner } from 'reactstrap';
+import Avatar from '../../../../../../components/Avatar/Avatar';
+import Icon from '../../../../../../atom/Icon/Icon';
 
-const MessageHeader = ({ user, product }) => {
+const MessageHeader = ({ chatId, chat }) => {
+  const { user, product } = chat;
+
   return (
     <div className={s.container}>
       {' '}

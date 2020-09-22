@@ -2,7 +2,7 @@ import { types, getRoot, getSnapshot } from 'mobx-state-tree';
 import { UserModel } from '../Users/UserModel';
 import { safeReference, asyncModel } from '../utils';
 import api from '../../service/api';
-import { Chat } from '../schemas';
+import { ChatSchema } from '../schemas';
 
 export const ProductModel = types
   .model('ProductModel', {
@@ -64,7 +64,7 @@ function createChat(message) {
       store.chatId = chat.id;
       chat.participants = [getSnapshot(store.owner)];
 
-      flow.merge(chat, Chat);
+      flow.merge(chat, ChatSchema);
 
       flow.success();
     } catch (err) {

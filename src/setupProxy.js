@@ -6,6 +6,7 @@ const proxy = createProxyMiddleware({
     '^/api': '',
   },
   changeOrigin: true,
+  ws: true,
 });
 
 const wsProxy = createProxyMiddleware({

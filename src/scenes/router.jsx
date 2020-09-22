@@ -8,19 +8,18 @@ import {
 } from 'react-router-dom';
 
 import Home from './Home/HomeView';
-import Inbox from './Inbox/InboxContainer';
+import Inbox from './Inbox/Inbox';
 import NotFound from './NotFound/NotFound';
 import Auth from './Auth/Auth';
 import EditProfile from './EditProfile/EditProfile';
 import AddProduct from './AddProduct/AddProductContainer';
-import Profile from './Profile/ProfileContainer';
+import Profile from './Profile/Profile';
 import AddProductForm from '../components/Form/AddProduct/AddProductContainer';
 import NoAuth from '../components/Modal/components/NoAuth';
 
 import ModalRefresh from '../components/Modal/ModalRefresh';
 import { observer } from 'mobx-react';
 import { useStore } from '../stores/createStore';
-import api from '../service/api';
 
 export const routes = {
   home: '/',
@@ -65,10 +64,6 @@ const Router = ({ viewer }) => {
       window.history.pushState(null, '');
     }
   }, [location.state]);
-
-  useEffect(() => {
-    api.init();
-  });
 
   let background = location.state && location.state.background;
 

@@ -23,6 +23,7 @@ const SendMessageModal = ({ product, isOpen, setOpen }) => {
   const viewer = useViewer();
   const onClose = useCallback(() => {
     setOpen(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Modal

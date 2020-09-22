@@ -1,15 +1,15 @@
 import React from 'react';
 import s from './MyMessage.module.scss';
 import moment from 'moment';
-import Loader from 'react-loader-spinner';
-import Icon from '../../../atom/Icon/Icon';
+// import Loader from 'react-loader-spinner';
+import { observer } from 'mobx-react';
 
-const MyMessageView = ({ message, sendMessage, ...props }) => {
+const MyMessage = ({ message }) => {
   return (
-    <div className={s.container} {...props}>
+    <div className={s.container}>
       <div className={s.content}>
         <div className={s.messageWrapper}>
-          {message.isLoading ? (
+          {/* {message.isLoading ? (
             <Loader
               type="Watch"
               color="#349A89"
@@ -18,7 +18,7 @@ const MyMessageView = ({ message, sendMessage, ...props }) => {
             />
           ) : (
             ''
-          )}
+          )} */}
           <span className={s.message}>{message.text}</span>
         </div>
         <div className={s.timeSend}>
@@ -26,13 +26,13 @@ const MyMessageView = ({ message, sendMessage, ...props }) => {
         </div>
       </div>
 
-      {!message?.isLoading && sendMessage.isError ? (
+      {/* {sendMessage.isError ? (
         <Icon name="error" height="22px" width="22px" />
       ) : (
         ''
-      )}
+      )} */}
     </div>
   );
 };
 
-export default MyMessageView;
+export default observer(MyMessage);

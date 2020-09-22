@@ -9,13 +9,13 @@ class SocketApi {
     });
 
     this.socket.on('connect', () => {
-      // console.log('Connected');
+      console.log('Connected');
     });
   }
 
   handleMessages(handler) {
     this.socket.on('message', (message) => {
-      console.log('Message', message);
+      // console.log('Message', message);
       handler(message);
     });
   }
