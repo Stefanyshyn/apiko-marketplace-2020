@@ -36,7 +36,7 @@ const MainHeader = ({ isSell, isSavedProducts, children }) => {
   const toggle = useCallback(() => {
     setOpen(!isOpen);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isOpen]);
   let location = useLocation();
   return (
     <header className={s.wrap}>

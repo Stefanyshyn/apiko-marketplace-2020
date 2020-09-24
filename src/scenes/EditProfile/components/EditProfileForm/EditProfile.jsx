@@ -1,26 +1,54 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import style from './EditProfile.module.scss';
 import { Formik } from 'formik';
 import * as Y from 'yup';
-import ErrorInput from '../components/Error/ErrorInput';
-import Input from '../components/Input/Input';
-import ErrorForm from '../components/Error/ErrorForm';
-import Icon from '../../../atom/Icon/Icon';
-import SubmiButton from '../../SubmiButton/SubmiButton';
-import Spinner from '../../Spinner/Spinner';
+import ErrorInput from '../../../../components/Form/components/Error/ErrorInput';
+import Input from '../../../../components/Form/components/Input/Input';
+import ErrorForm from '../../../../components/Form/components/Error/ErrorForm';
+import Icon from '../../../../atom/Icon/Icon';
+import SubmiButton from '../../../../components/SubmiButton/SubmiButton';
+import { observer } from 'mobx-react';
+import confirm from 'reactstrap-confirm';
+import { useViewer } from '../../../../stores/ViewerStore';
 
-const EditProfileComponent = (props) => {
-  const {
-    onSubmit,
-    onUpdatePhoto,
+const EditProfile = () => {
+  const viewer = useViewer();
+  const user = viewer.user;
+  const onSubmit = useCallback(
+    async (avatar, fullName, phone, location) => {
+      let result = await confirm({
+        message: 'Edit data?',
+        confirmText: 'Confirm',
+        confirmColor: 'warning',
+        cancelColor: 'link text-danger',
+      });
+      if (result) {
+        await viewer.editUser.run(avatar, fullName, phone, location);
+      }
+    },
+    [viewer],
+  );
 
-    user,
-
-    fetchViewer,
-  } = props;
-
-  if (fetchViewer.isLoading && !user) return <Spinner />;
-
+  const onUpdatePhoto = useCallback(
+    (setFieldValue, setTouched) => (event) => {
+      event.preventDefault();
+      const select = document.createElement('input');
+      select.setAttribute(
+        'accept',
+        '.jpg,.jpeg,.png,.gif,.apng,.tiff,.tif,.bmp,.xcf,.webp,.mp4,.mov',
+      );
+      select.type = 'file';
+      select.onchange = async (e) => {
+        let file = e.target.files[0];
+        setFieldValue('avatar', URL.createObjectURL(file));
+        setFieldValue('newAvatar', file);
+        setTouched('avatar');
+      };
+      select.click();
+    },
+    [],
+  );
+  const { isLoading, isError, err } = viewer.editUser;
   return (
     <Formik
       initialValues={{
@@ -37,13 +65,11 @@ const EditProfileComponent = (props) => {
         phone: Y.string().max(20, 'Phone is too long!!'),
       })}
       onSubmit={(values) => {
-        const body = {
-          avatar: values.newAvatar || values.avatar,
-          fullName: values.fullName || null,
-          phone: values.phone || null,
-          location: user.location,
-        };
-        onSubmit(body);
+        const avatar = values.newAvatar || values.avatar;
+        const fullName = values.fullName || null;
+        const phone = values.phone || null;
+        const location = user.location;
+        onSubmit(avatar, fullName, phone, location);
       }}
     >
       {(formik) => (
@@ -102,20 +128,18 @@ const EditProfileComponent = (props) => {
                 <ErrorInput msg={formik.errors.phone} />
               ) : null}
             </div>
-            {fetchViewer.isError ? (
+            {isError ? (
               <ErrorForm>
-                {(
-                  String(fetchViewer.error.message)[0] + ''
-                ).toUpperCase() +
-                  String(fetchViewer.error.message).slice(1)}
+                {(err.message[0] + '').toUpperCase() +
+                  err.message.slice(1)}
               </ErrorForm>
             ) : (
               ''
             )}
             <SubmiButton
               disabled={Object.keys(formik.touched).length === 0}
-              isLoading={fetchViewer.isLoading}
-              value="Continue"
+              isLoading={isLoading}
+              value="Save"
             />
           </div>
         </form>
@@ -124,4 +148,4 @@ const EditProfileComponent = (props) => {
   );
 };
 
-export default EditProfileComponent;
+export default observer(EditProfile);

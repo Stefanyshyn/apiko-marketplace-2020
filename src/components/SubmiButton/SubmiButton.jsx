@@ -2,29 +2,26 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import s from './SubmiButton.module.scss';
 import Spinner from '../Spinner/Spinner';
+import { observer } from 'mobx-react';
 
-const SubmiButton = ({
-  value,
-  disabled,
-  height,
-  isLoading,
-  className,
-  ...props
-}) => {
+const SubmiButton = ({ value, disabled, isLoading, className }) => {
   return (
     <div
       className={s.submit}
       style={disabled ? { opacity: '50%' } : null}
     >
-      <input
-        className={s.button + ' ' + className}
-        type="submit"
-        disabled={isLoading || disabled ? 'disabled' : ''}
-        value={isLoading ? <Spinner /> : value}
-        {...props}
-      />
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <input
+          className={s.button + ' ' + className}
+          type="submit"
+          disabled={isLoading || disabled ? 'disabled' : ''}
+          value={value}
+        />
+      )}
     </div>
   );
 };
 
-export default SubmiButton;
+export default observer(SubmiButton);

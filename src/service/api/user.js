@@ -24,9 +24,14 @@ const user = {
   getUser: (userId) => {
     return axios.get(urls.getUserById(userId));
   },
-  changeCurrentUser(body) {
+  changeCurrentUser(avatar, fullName, phone, location) {
     this._setToken();
-    return axios.put(urls.putUser, body);
+    return axios.put(urls.putUser, {
+      avatar,
+      fullName,
+      phone,
+      location,
+    });
   },
 };
 

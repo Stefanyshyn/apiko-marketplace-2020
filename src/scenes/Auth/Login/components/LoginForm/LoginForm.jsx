@@ -14,7 +14,7 @@ import { useHistory } from 'react-router-dom';
 import { routes } from '../../../../router';
 import { useLogin } from '../../../../../stores/auth/LoginStore';
 
-const LoginFormComponent = function () {
+const LoginForm = function () {
   const history = useHistory();
   const login = useLogin();
   const email = login.email;
@@ -120,7 +120,7 @@ const LoginFormComponent = function () {
           <SubmiButton
             style={{ marginTop: '16px' }}
             isLoading={isLoading}
-            value="Continue"
+            value="Save"
           />
         </form>
       )}
@@ -128,4 +128,4 @@ const LoginFormComponent = function () {
   );
 };
 
-export default observer(LoginFormComponent);
+export default observer(LoginForm);
