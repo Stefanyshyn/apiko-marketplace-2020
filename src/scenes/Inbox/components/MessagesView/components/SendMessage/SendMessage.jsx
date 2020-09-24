@@ -8,14 +8,17 @@ const SendMessage = ({ chat }) => {
   const onChange = useCallback((event) => {
     setText(event.target.value);
   }, []);
-  const onSubmit = useCallback((event) => {
-    event.preventDefault();
-    
-    chat.sendMessage.run(text.trim());
+  const onSubmit = useCallback(
+    (event) => {
+      event.preventDefault();
 
-    setText('');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [text]);
+      chat.sendMessage.run(text.trim());
+
+      setText('');
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    },
+    [text],
+  );
   const disabled = text.trim().length === 0;
   return (
     <form className={s.sendWrapper} onSubmit={onSubmit}>

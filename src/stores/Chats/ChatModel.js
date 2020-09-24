@@ -29,12 +29,15 @@ export const ChatModel = t
       user: snapshot.participants[0],
     };
   });
-  function sendMessage(message) {
-    return async function sendMessageFlow(flow, store) {
-      const { data} = await api.messages.sendMessage(store.id, message);
-      store.messages.addMessage(data)
-    };
-  }
+function sendMessage(message) {
+  return async function sendMessageFlow(flow, store) {
+    const { data } = await api.messages.sendMessage(
+      store.id,
+      message,
+    );
+    store.messages.addMessage(data);
+  };
+}
 
 export function useChat() {
   return useStore((store) => store.chats);

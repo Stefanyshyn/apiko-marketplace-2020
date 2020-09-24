@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useCallback, useState } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import s from './MainHeader.module.scss';
@@ -17,19 +17,26 @@ import {
 } from 'reactstrap';
 import { useStore } from '../../../stores/createStore';
 import { observer } from 'mobx-react';
+import { useLatestProductsStore } from '../../../stores/Products/LatestProdutsStore';
 
-const MainHeader = ({
-  isSell,
-  isSavedProducts,
-  children,
-  onClickLogo,
-
-  toggle,
-  isOpen,
-}) => {
+const MainHeader = ({ isSell, isSavedProducts, children }) => {
   const store = useStore();
   const user = store.viewer.user;
   const isUser = !!user;
+  const logout = useStore((store) => store.auth.logout);
+  const history = useHistory();
+  const latestProducts = useLatestProductsStore();
+  const [isOpen, setOpen] = useState(false);
+  const onClickLogo = useCallback(async () => {
+    latestProducts.reset();
+    await latestProducts.fetchLatest.run({ limit: 30 });
+    history.push(routes.productLatest);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const toggle = useCallback(() => {
+    setOpen(!isOpen);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   let location = useLocation();
   return (
     <header className={s.wrap}>
@@ -74,10 +81,7 @@ const MainHeader = ({
             <NavItem>
               <div className={s.layoutLogin}>
                 {isUser ? (
-                  <Dropdown
-                    user={user}
-                    onLogout={store.auth.logout}
-                  />
+                  <Dropdown user={user} onLogout={logout} />
                 ) : (
                   <Link to={routes.login} className={s.Login}>
                     LOGIN

@@ -25,17 +25,18 @@ export const ChatStore = t
     },
     handleMessage(message) {
       if (message?.type === 'ADD') {
-        debugger
-        const chat = store.items.find((chat) => chat.id === message.message.chatId);
+        debugger;
+        const chat = store.items.find(
+          (chat) => chat.id === message.message.chatId,
+        );
         if (chat) chat.messages.addMessage(message.message);
       }
     },
   }));
-  function fetchChats() {
-    return async function fetchChatsFlow(flow, store) {
-      const { data } = await api.chats.getChats();
-      const res = flow.merge(data, ChatCollectionSchema);
-      store.setItems(res);
-    };
-  }
-    
+function fetchChats() {
+  return async function fetchChatsFlow(flow, store) {
+    const { data } = await api.chats.getChats();
+    const res = flow.merge(data, ChatCollectionSchema);
+    store.setItems(res);
+  };
+}

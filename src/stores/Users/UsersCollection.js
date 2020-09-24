@@ -2,7 +2,7 @@ import { useStore } from '../createStore';
 import { createCollection, asyncModel } from '../utils';
 import { UserModel } from './UserModel';
 import api from '../../service/api';
-import { User } from '../schemas';
+import { UserSchema } from '../schemas';
 
 export function useUsersCollection() {
   const store = useStore();
@@ -16,6 +16,6 @@ export const UsersCollection = createCollection(UserModel, {
 function fetchById(id) {
   return async function fetchByIdFlow(flow, store) {
     const { data: user } = await api.user.getUser(id);
-    flow.merge(user, User);
+    flow.merge(user, UserSchema);
   };
 }

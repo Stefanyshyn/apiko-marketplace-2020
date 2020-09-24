@@ -21,11 +21,11 @@ export const RootStore = t
         let result = await api.user.getCurrentUser();
         if (!result) return;
         api.init();
-        
+
         store.viewer.setViewer(result.data);
         store.subscribeToEvents();
 
-        store.auth.setIsLoggedIn(true)
+        store.auth.setIsLoggedIn(true);
       } catch (err) {
         store.auth.logout();
       }

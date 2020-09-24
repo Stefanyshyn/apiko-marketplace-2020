@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Spinner, Media } from 'reactstrap';
 
 import s from './Profile.module.scss';
-import MainHeader from '../../components/Headers/MainHeader/MainHeaderView';
+import MainHeader from '../../components/Headers/MainHeader/MainHeader';
 import Footer from '../../components/Footer/Footer';
 
 import SearchForm from '../../components/Search/SearchForm/SearchFormView';
@@ -13,7 +13,7 @@ import { observer } from 'mobx-react';
 import { useUsersCollection } from '../../stores/Users/UsersCollection';
 import OwnProducts from './components/OwnProducts';
 
-const Profile = ({ onClickLogo, isProductsLoading }) => {
+const Profile = () => {
   const [activeTab, setActiveTab] = useState(3);
   const {
     params: { id },

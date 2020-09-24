@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Route, Switch, useParams } from 'react-router-dom';
 
 import s from './Inbox.module.scss';
-import MainHeader from '../../components/Headers/MainHeader/MainHeaderView';
+import MainHeader from '../../components/Headers/MainHeader/MainHeader';
 import Footer from '../../components/Footer/Footer';
 import ChatList from './components/ChatList/ChatList';
 import { observer } from 'mobx-react';

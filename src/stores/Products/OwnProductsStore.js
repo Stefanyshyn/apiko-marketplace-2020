@@ -2,7 +2,7 @@ import { getParent, types } from 'mobx-state-tree';
 import { ProductModel } from '../Products/ProductModel';
 import { asyncModel } from '../utils';
 import api from '../../service/api';
-import { OwnProductCollecition } from '../schemas';
+import { OwnProductCollecitionSchema } from '../schemas';
 
 export const OwnProductsStore = types
   .model('OwnProductsStore', {
@@ -21,7 +21,7 @@ function fetchOwnProducts() {
     const {
       data: { list },
     } = await api.products.getUserProducts(getParent(store).id);
-    const ids = flow.merge(list, OwnProductCollecition);
+    const ids = flow.merge(list, OwnProductCollecitionSchema);
     store.setItems(ids);
   };
 }

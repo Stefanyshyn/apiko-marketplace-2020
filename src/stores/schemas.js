@@ -1,26 +1,26 @@
 import { schema } from 'normalizr';
 
-export const User = new schema.Entity('users');
+export const UserSchema = new schema.Entity('users');
 
-export const Product = new schema.Entity('products', {
-  owner: User,
+export const ProductSchema = new schema.Entity('products', {
+  owner: UserSchema,
 });
 
-export const UserColllection = [User];
+export const UserColllectionSchema = [UserSchema];
 
-export const OwnProduct = new schema.Entity('products');
-export const OwnProductCollecition = [OwnProduct];
+export const OwnProductSchema = new schema.Entity('products');
+export const OwnProductCollecitionSchema = [OwnProductSchema];
 
-export const LatestProduct = new schema.Entity('products');
-export const LatestProductColllection = [LatestProduct];
+export const LatestProductSchema = new schema.Entity('products');
+export const LatestProductColllectionSchema = [LatestProductSchema];
 
 export const MessageSchema = new schema.Entity('messages');
 export const MessageCollectionSchema = [MessageSchema];
 
 export const ChatSchema = new schema.Entity('chats', {
   message: MessageSchema,
-  product: Product,
-  participants: [User],
+  product: ProductSchema,
+  participants: [UserSchema],
 });
 export const ChatCollectionSchema = [ChatSchema];
 

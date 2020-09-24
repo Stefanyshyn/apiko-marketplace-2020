@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './Home.module.scss';
-import MainHeader from '../../components/Headers/MainHeader/MainHeaderView';
+import MainHeader from '../../components/Headers/MainHeader/MainHeader';
 import Footer from '../../components/Footer/Footer';
 import { v4 } from 'uuid';
 import SearchForm from '../../components/Search/SearchForm/SearchFormView';

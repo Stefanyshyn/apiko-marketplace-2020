@@ -19,7 +19,7 @@ const products = {
     this._setTokenToAxios(token);
   },
 
-  async getLatest({ from, limit }) {
+  async getLatest(limit, from) {
     this.init();
     let url = `${urls.getLatest}?limit=${limit}`;
 

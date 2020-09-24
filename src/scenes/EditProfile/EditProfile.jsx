@@ -1,6 +1,6 @@
 import React from 'react';
 import s from './EditProfile.module.scss';
-import MainHeader from '../../components/Headers/MainHeader/MainHeaderView';
+import MainHeader from '../../components/Headers/MainHeader/MainHeader';
 import Footer from '../../components/Footer/Footer';
 
 import EditProfileForm from '../../components/Form/EditProfileForm/EditProfileContainer';
