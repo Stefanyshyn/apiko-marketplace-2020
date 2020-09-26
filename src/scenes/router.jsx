@@ -1,25 +1,24 @@
 import React, { useEffect } from 'react';
-
 import {
   Switch,
   Route,
   useLocation,
   Redirect,
 } from 'react-router-dom';
+import { observer } from 'mobx-react';
+import { useStore } from '../stores/createStore';
 
 import Home from './Home/HomeView';
 import Inbox from './Inbox/Inbox';
 import NotFound from './NotFound/NotFound';
 import Auth from './Auth/Auth';
 import EditProfile from './EditProfile/EditProfile';
-import AddProduct from './AddProduct/AddProductContainer';
+import AddProduct from './AddProduct/AddProduct';
 import Profile from './Profile/Profile';
-import AddProductForm from '../components/Form/AddProduct/AddProductContainer';
 import NoAuth from '../components/Modal/components/NoAuth';
 
 import ModalRefresh from '../components/Modal/ModalRefresh';
-import { observer } from 'mobx-react';
-import { useStore } from '../stores/createStore';
+import AddProductForm from '../components/Form/AddProduct/AddProduct';
 
 export const routes = {
   home: '/',
@@ -56,7 +55,8 @@ export const PrivateRoute = observer(
   },
 );
 
-const Router = ({ viewer }) => {
+const Router = () => {
+  const store = useStore();
   let location = useLocation();
 
   useEffect(() => {
@@ -95,10 +95,14 @@ const Router = ({ viewer }) => {
       {background ? (
         <Route
           path={routes.addProduct}
-          render={(props) => {
+          render={() => {
             return (
               <ModalRefresh isOpen={true}>
-                {viewer ? <AddProductForm {...props} /> : <NoAuth />}
+                {store.auth.isLoggedIn ? (
+                  <AddProductForm />
+                ) : (
+                  <NoAuth />
+                )}
               </ModalRefresh>
             );
           }}

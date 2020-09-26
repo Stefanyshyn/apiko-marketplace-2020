@@ -1,30 +1,48 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import s from './AddProduct.module.scss';
 import { Formik } from 'formik';
+import { observer } from 'mobx-react';
+import confirm from 'reactstrap-confirm';
+import { toast } from 'react-toastify';
+import yup from '../../../utils/yup';
+
 import ErrorInput from '../components/Error/ErrorInput';
 import Input from '../components/Input/Input';
 import ErrorForm from '../components/Error/ErrorForm';
 import SubmiButton from '../../SubmiButton/SubmiButton';
-import yup from '../../../utils/yup';
-import InputImages from '../components/InputImages/InputImages';
+import InputImages from './components/InputImages/InputImages';
+import { useAddProductStore } from '../../../stores/Products/AddProductStore';
 
-const AddProductView = (props) => {
-  const {
-    onSubmit,
+const AddProductForm = () => {
+  const addProductStore = useAddProductStore();
+  const { addProduct } = addProductStore;
+  //  console.log(JSON.stringify(addProduct))
 
-    addProductsFields,
-    changeAddProductField,
+  const onSubmit = useCallback(async () => {
+    let result = await confirm({
+      message: 'Add product?',
+      confirmText: 'Confirm',
+      confirmColor: 'warning',
+      cancelColor: 'link text-danger',
+    });
+    if (result) {
+      await addProduct.run();
+      toast.success('The product has been added');
+      if (addProduct.isError) toast.error(addProduct.err?.message);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    fetchAddProduct,
-  } = props;
+  console.log(JSON.stringify(addProduct));
+  const { photos } = addProductStore;
   return (
     <Formik
       initialValues={{
-        title: addProductsFields.title,
-        description: addProductsFields.description,
-        location: addProductsFields.location,
-        photos: addProductsFields.photos,
-        price: addProductsFields.price,
+        title: addProductStore.title || '',
+        description: addProductStore.description || '',
+        location: addProductStore.location || '',
+        photos: photos,
+        price: addProductStore.price || 0,
       }}
       validationSchema={yup.object({
         title: yup
@@ -44,16 +62,7 @@ const AddProductView = (props) => {
           .required('Required'),
         photos: yup.array().required('Required'),
       })}
-      onSubmit={(values) => {
-        const body = {
-          title: values.title || null,
-          location: values.location || null,
-          description: values.description || null,
-          photos: values.photos || null,
-          price: values.price || null,
-        };
-        onSubmit(body);
-      }}
+      onSubmit={onSubmit}
     >
       {(formik) => (
         <form
@@ -76,7 +85,7 @@ const AddProductView = (props) => {
                   onChange: (event) => {
                     const { value } = event.target;
 
-                    changeAddProductField('title', value);
+                    addProductStore.setTitle(value);
                     formik.handleChange(event);
                   },
                 }}
@@ -96,7 +105,7 @@ const AddProductView = (props) => {
                   onChange: (event) => {
                     const { value } = event.target;
 
-                    changeAddProductField('location', value);
+                    addProductStore.setLocation(value);
                     formik.handleChange(event);
                   },
                 }}
@@ -117,7 +126,7 @@ const AddProductView = (props) => {
                   onChange: (event) => {
                     const { value } = event.target;
 
-                    changeAddProductField('description', value);
+                    addProductStore.setDescription(value);
                     formik.handleChange(event);
                   },
                 }}
@@ -132,11 +141,16 @@ const AddProductView = (props) => {
               <InputImages
                 photos={formik.values.photos}
                 setPhotos={(photos) => {
-                  changeAddProductField(
-                    'photos',
-                    formik.values.photos,
-                  );
+                  addProductStore.setPhotos(photos);
                   formik.setFieldValue('photos', photos);
+                }}
+                onDeleteImage={(index) => {
+                  const photos = formik.values.photos.filter(
+                    (item, i) => i !== index,
+                  );
+
+                  formik.setFieldValue('photos', photos);
+                  addProductStore.setPhotos(photos);
                 }}
               />
               {formik.touched.photos && formik.errors.photos ? (
@@ -155,7 +169,7 @@ const AddProductView = (props) => {
                   onChange: (event) => {
                     const { value } = event.target;
 
-                    changeAddProductField('price', value);
+                    addProductStore.setPrice(+value);
                     formik.handleChange(event);
                   },
                 }}
@@ -165,12 +179,10 @@ const AddProductView = (props) => {
               ) : null}
             </div>
 
-            {fetchAddProduct.isError ? (
+            {addProduct.isError ? (
               <ErrorForm style={{ marginTop: '15px' }}>
-                {(
-                  String(fetchAddProduct.error.message)[0] + ''
-                ).toUpperCase() +
-                  String(fetchAddProduct.error.message).slice(1)}
+                {addProduct.err[0].toUpperCase() +
+                  addProduct.err.slice(1)}
               </ErrorForm>
             ) : (
               ''
@@ -178,7 +190,7 @@ const AddProductView = (props) => {
             <div className={s.submiButton}>
               <SubmiButton
                 disabled={Object.keys(formik.touched).length === 0}
-                isLoading={fetchAddProduct.isLoading}
+                isLoading={addProduct.isLoading}
                 value="Continue"
                 style={{ padding: '19px 29px 21px 29px' }}
               />
@@ -190,4 +202,4 @@ const AddProductView = (props) => {
   );
 };
 
-export default AddProductView;
+export default observer(AddProductForm);

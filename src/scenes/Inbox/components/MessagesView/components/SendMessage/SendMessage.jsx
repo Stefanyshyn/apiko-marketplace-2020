@@ -17,7 +17,8 @@ const SendMessage = ({ chat }) => {
       setText('');
       // eslint-disable-next-line react-hooks/exhaustive-deps
     },
-    [text],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [text, chat],
   );
   const disabled = text.trim().length === 0;
   return (

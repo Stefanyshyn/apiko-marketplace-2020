@@ -1,4 +1,5 @@
 .container{
+    position: relative;
     width: 100%;
     padding: 0 0 16px 16px;
     
@@ -37,4 +38,10 @@
         left: 25px;
         transform: rotate(-90deg);
     }
+}
+
+.close{
+    position: absolute;
+    right: 5px;
+    top: 5px;
 }

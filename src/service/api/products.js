@@ -6,7 +6,7 @@ const urls = {
   getLatest: '/api/products/latest',
   getSaved: '/api/products/saved',
   getProductsByFilter: '/api/products/search',
-  add: '/api/products',
+  createProduct: '/api/products',
   getUserProducts: (id) => `/api/users/${id}/products`,
   save: (id) => `/api/products/${id}/saved`,
   deleteSaved: (id) => `/api/products/${id}/saved`,
@@ -63,10 +63,16 @@ const products = {
     return axios.delete(urls.deleteSaved(id));
   },
 
-  async add(body) {
+  async createProduct(title, location, description, photos, price) {
     products.init();
 
-    return axios.post(urls.add, body);
+    return axios.post(urls.createProduct, {
+      title,
+      location,
+      description,
+      photos,
+      price,
+    });
   },
 
   async getProduct(id) {
