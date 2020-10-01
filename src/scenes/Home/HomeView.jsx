@@ -10,7 +10,7 @@ import { routes } from '../router';
 import NotFound from '../NotFound/NotFound';
 import ProductsWanted from '../Products/ProductsWanted/ProductsWantedConatainer';
 import ProductsLatest from '../Products/ProductsLatest/ProductsLatest';
-import SavedProducts from '../Products/ProductsSaved/ProductsSavedContainer';
+import SavedProducts from '../Products/ProductsSaved/ProductsSaved';
 
 const Home = () => {
   return (

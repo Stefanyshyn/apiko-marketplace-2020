@@ -5,6 +5,7 @@ export const UserSchema = new schema.Entity('users');
 export const ProductSchema = new schema.Entity('products', {
   owner: UserSchema,
 });
+export const ProductCollecitionSchema = [ProductSchema];
 
 export const UserColllectionSchema = [UserSchema];
 

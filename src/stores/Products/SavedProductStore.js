@@ -1,32 +1,32 @@
 import { types as t } from 'mobx-state-tree';
 import api from '../../service/api';
 import { asyncModel } from '../utils';
-import { ProductSchema } from '../schemas';
+import { ProductCollecitionSchema } from '../schemas';
 import { useStore } from '../createStore';
+import { ProductModel } from './ProductModel';
 
 export function useSavedProductStore() {
-  return useStore((store) => store.products.savedProduct);
+  return useStore((store) => store.products.savedProducts);
 }
 
 export const SavedProductStore = t
   .model('AddProductStore', {
-    title: t.maybeNull(t.string),
-    location: t.maybeNull(t.string),
-    description: t.maybeNull(t.string),
-    price: t.maybeNull(t.number),
+    items: t.array(t.reference(ProductModel)),
+    limit: 30,
 
     fetch: asyncModel(fetchProduct),
   })
   .actions((store) => ({
-    setTitle(value) {
-      store.title = value;
+    setItems(items) {
+      store.items = items;
     },
   }));
 
 function fetchProduct() {
   return async function fetchProductFlow(flow, store) {
-    const { data } = await api.products.getSaved();
-    flow.merge(data, ProductSchema);
-    store.reset();
+    const { data } = await api.products.getSaved(store.limit);
+
+    const result = flow.merge(data, ProductCollecitionSchema);
+    store.setItems(result);
   };
 }

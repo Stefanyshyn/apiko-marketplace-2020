@@ -42,7 +42,8 @@ const products = {
           .join('&'),
     );
   },
-  async getSaved(body) {
+  async getSaved(limit) {
+    const body = { limit };
     products.init();
     return axios.get(
       urls.getSaved +
