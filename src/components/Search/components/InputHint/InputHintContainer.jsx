@@ -6,7 +6,7 @@ import {
 } from 'recompose';
 import { inputHints } from '../../../../service/localStorage';
 
-import InputHintView from './InputHintView';
+import InputHint from './InputHint';
 
 const enhancer = compose(
   withState('hints', 'setHints', []),
@@ -34,4 +34,4 @@ const enhancer = compose(
     },
   }),
 );
-export default enhancer(InputHintView);
+export default enhancer(InputHint);

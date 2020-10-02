@@ -1,13 +1,44 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { generatePath, useHistory } from 'react-router-dom';
+import { Formik } from 'formik';
+import { observer } from 'mobx-react';
+
 import style from './SearchForm.module.scss';
 import Icon from '../../../atom/Icon/Icon';
-import { Formik } from 'formik';
 import yup from '../../../utils/yup';
+import InputWithHistoryView from '../components/InputWithHistory/InputWithHistory';
+import { inputHints } from '../../../service/localStorage';
+import { useWantedProductStore } from '../../../stores/Products/WantedProductsStore';
+import { routes } from '../../../scenes/router';
+const nameHistory = {
+  keywords: 'input-keywords',
+};
 
-import InputWithHistoryView from '../../Form/components/InputWithHistory/InputWithHistoryView';
-const historyName = 'history';
+const SearchForm = ({ height }) => {
+  const wantedProducts = useWantedProductStore();
+  const history = useHistory();
 
-const SearchFormView = ({ height, onSubmit }) => {
+  const onSubmit = useCallback(async (values) => {
+    //adds keywords to local storage for keywords input history
+    inputHints.setHints({
+      nameHistory: nameHistory.keywords,
+      hint: values.keywords,
+    });
+    await wantedProducts.fetch.run({
+      keywords: values.keywords,
+      location: values.location,
+    });
+    const params = {};
+    if (values.keywords) params.keywords = values.keywords;
+    if (values.location) params.location = values.location;
+    if (wantedProducts.priceFrom)
+      params.priceFrom = wantedProducts.priceFrom;
+    if (wantedProducts.priceTo)
+      params.priceTo = wantedProducts.priceTo;
+    history.push(generatePath(routes.wantedProduct, params));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Formik
       initialValues={{
@@ -39,7 +70,7 @@ const SearchFormView = ({ height, onSubmit }) => {
         >
           <div className={style.searchByNameContainer}>
             <InputWithHistoryView
-              nameHistory={historyName.keywords}
+              nameHistory={nameHistory.keywords}
               name="keywords"
               className={style.searchByName}
               placeholder="Search products by name"
@@ -90,4 +121,4 @@ const SearchFormView = ({ height, onSubmit }) => {
   );
 };
 
-export default SearchFormView;
+export default observer(SearchForm);

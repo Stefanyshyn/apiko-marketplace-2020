@@ -32,13 +32,28 @@ const products = {
     products.init();
     return axios.get(urls.getUserProducts(id));
   },
-  async getProductsByFilter(body) {
+  async getProductsByFilter({
+    limit,
+    offset,
+    keywords,
+    location,
+    priceFrom,
+    priceTo,
+  }) {
+    const body = {
+      limit,
+      offset,
+      keywords,
+      location,
+      priceFrom,
+      priceTo,
+    };
     products.init();
     return axios.get(
       urls.getProductsByFilter +
         '?' +
         Object.entries(body)
-          .map(([key, value]) => key + '=' + value)
+          .map(([key, value]) => (value ? key + '=' + value : ''))
           .join('&'),
     );
   },

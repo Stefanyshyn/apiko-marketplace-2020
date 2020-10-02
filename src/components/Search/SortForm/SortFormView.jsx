@@ -1,21 +1,27 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 import 'bootstrap/dist/css/bootstrap.css';
 import s from './SortForm.module.scss';
 
 import Icon from '../../../atom/Icon/Icon';
 import Select from '../components/Select/Select';
+import { useWantedProductStore } from '../../../stores/Products/WantedProductsStore';
 
-const SortFormView = ({ priceTo, priceFrom, onChange }) => {
+const SortForm = () => {
+  const wantedProducts = useWantedProductStore();
+
   return (
     <div className={s.container}>
       <Select />
       <div className={s.price}>
         <input
           className={s.priceFrom}
-          value={priceFrom}
+          value={wantedProducts.priceFrom}
           type="number"
           name="priceFrom"
-          onChange={(event) => onChange(event)}
+          onChange={(event) =>
+            wantedProducts.setPriceFrom(event.target.value)
+          }
           placeholder="Price from (USD)"
         />
         <Icon
@@ -26,10 +32,12 @@ const SortFormView = ({ priceTo, priceFrom, onChange }) => {
         />
         <input
           className={s.priceTo}
-          value={priceTo}
+          value={wantedProducts.priceTo}
           name="priceTo"
           type="number"
-          onChange={(event) => onChange(event)}
+          onChange={(event) =>
+            wantedProducts.setPriceTo(event.target.value)
+          }
           placeholder="Price to (USD)"
         />
       </div>
@@ -37,4 +45,4 @@ const SortFormView = ({ priceTo, priceFrom, onChange }) => {
   );
 };
 
-export default SortFormView;
+export default observer(SortForm);
