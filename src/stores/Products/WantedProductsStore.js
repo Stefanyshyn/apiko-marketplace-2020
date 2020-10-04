@@ -11,19 +11,22 @@ export function useWantedProductStore() {
 
 export const WantedProductsStore = types
   .model('WantedProductsStore', {
-    items: types.maybeNull(
-      types.array(types.reference(ProductModel)),
-    ),
+    items: types.array(types.reference(ProductModel)),
     priceFrom: types.maybe(types.number),
     priceTo: types.maybe(types.number),
 
     limit: 30,
+    isNext: true,
 
     fetch: asyncModel(fetchProducts),
+    fetchMore: asyncModel(fetchMoreProducts),
   })
   .actions((store) => ({
     setItems(value) {
       store.items = value;
+    },
+    setIsNext(value) {
+      store.isNext = value;
     },
     setPriceFrom(value) {
       store.priceFrom = value;
@@ -35,6 +38,7 @@ export const WantedProductsStore = types
 
 function fetchProducts({ keywords, location }) {
   return async function fetchProductsFlow(flow, store) {
+    store.setIsNext(true);
     const { data } = await api.products.getProductsByFilter({
       limit: store.limit,
       offset: store.items?.length | 0,
@@ -44,6 +48,21 @@ function fetchProducts({ keywords, location }) {
       priceTo: store.priceTo,
     });
     const results = flow.merge(data, ProductCollecitionSchema);
+    if (results.length !== store.limit) store.setIsNext(false);
     store.setItems(results);
+  };
+}
+
+function fetchMoreProducts(params) {
+  return async function fetchProductsFlow(flow, store) {
+    const { data } = await api.products.getProductsByFilter({
+      limit: store.limit,
+      offset: store.items?.length | 0,
+      ...params,
+    });
+    const results = flow.merge(data, ProductCollecitionSchema);
+    if (results !== store.limit) store.setIsNext(false);
+
+    store.setItems([...store.items, results]);
   };
 }

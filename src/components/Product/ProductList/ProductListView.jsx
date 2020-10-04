@@ -69,6 +69,7 @@ class ProductList extends Component {
   _cellRenderer({ index, key, parent, style }) {
     const { products } = this.props;
     const { columnWidth } = this.state;
+
     return (
       <CellMeasurer
         cache={this._cache}

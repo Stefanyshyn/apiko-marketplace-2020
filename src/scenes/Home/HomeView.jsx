@@ -8,7 +8,7 @@ import { Switch, Route } from 'react-router-dom';
 import ProductView from '../Products/Product/ProductView';
 import { routes } from '../router';
 import NotFound from '../NotFound/NotFound';
-import ProductsWanted from '../Products/ProductsWanted/ProductsWantedConatainer';
+import ProductsWanted from '../Products/ProductsWanted/ProductsWanted';
 import ProductsLatest from '../Products/ProductsLatest/ProductsLatest';
 import SavedProducts from '../Products/ProductsSaved/ProductsSaved';
 

@@ -15,7 +15,6 @@ const BriefProductInfo = ({ product }) => {
   function clickOnProduct() {
     history.push(generatePath(routes.product, { id: product.id }));
   }
-
   return (
     <div className={s.container} onClick={clickOnProduct}>
       <div className={s.iconWrapper}>
