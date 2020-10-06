@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree';
+import { getRoot, types } from 'mobx-state-tree';
 import { ProductModel } from './ProductModel';
 import { asyncModel } from '../utils';
 import api from '../../service/api';
@@ -38,7 +38,10 @@ export const WantedProductsStore = types
 
 function fetchProducts({ keywords, location }) {
   return async function fetchProductsFlow(flow, store) {
+    const { app } = getRoot(store);
+    app.setLoadingProgressBar(true);
     store.setIsNext(true);
+
     const { data } = await api.products.getProductsByFilter({
       limit: store.limit,
       offset: 0,
@@ -50,6 +53,7 @@ function fetchProducts({ keywords, location }) {
     const results = flow.merge(data, ProductCollecitionSchema);
     if (results.length !== store.limit) store.setIsNext(false);
     store.setItems(results);
+    app.setLoadingProgressBar(true);
   };
 }
 

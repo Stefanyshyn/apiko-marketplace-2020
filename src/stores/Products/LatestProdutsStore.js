@@ -1,4 +1,4 @@
-import { types } from 'mobx-state-tree';
+import { getRoot, types } from 'mobx-state-tree';
 import { ProductModel } from './ProductModel';
 import { asyncModel } from '../utils';
 import api from '../../service/api';
@@ -50,6 +50,7 @@ function fetchLatest() {
     } catch (err) {
       flow.error(err);
     } finally {
+      getRoot(store).app.setLoadingProgressBar(false);
       store.setIsReset(false);
     }
   };

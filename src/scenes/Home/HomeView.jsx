@@ -11,10 +11,12 @@ import NotFound from '../NotFound/NotFound';
 import ProductsWanted from '../Products/ProductsWanted/ProductsWanted';
 import ProductsLatest from '../Products/ProductsLatest/ProductsLatest';
 import SavedProducts from '../Products/ProductsSaved/ProductsSaved';
+import Progress from '../../components/Progress/Progress';
 
 const Home = () => {
   return (
     <div className={s.container}>
+      <Progress />
       <Switch>
         <Route
           exact

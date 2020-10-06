@@ -4,7 +4,6 @@ import Spinner from '../../../components/Spinner/Spinner';
 import ProductList from '../../../components/Product/ProductList/ProductListView';
 import { observer } from 'mobx-react';
 import { useLatestProductsStore } from '../../../stores/Products/LatestProdutsStore';
-import { ProgressBar } from 'react-bootstrap';
 
 function ProductsLatest() {
   const latestProducts = useLatestProductsStore();
@@ -23,14 +22,6 @@ function ProductsLatest() {
 
   return (
     <div className={s.container}>
-      {latestProducts.isReset ? (
-        <div className={s.progress}>
-          <ProgressBar animated variant="info" now={100} />
-        </div>
-      ) : (
-        ''
-      )}
-
       {products.length !== 0 ? (
         <ProductList
           products={products}

@@ -25,13 +25,17 @@ export function asyncModel(thunk, auto = true) {
       },
       success() {
         store.isLoading = false;
+        const app = getRoot(store).app;
+        app.setLoadingProgressBar(false);
       },
       error(err) {
-        store.isLoading = false;
         store.isError = true;
         store.err = String(
           err?.response?.data?.message || err?.response?.data?.error,
         );
+        const app = getRoot(store).app;
+        app.setLoadingProgressBar(false);
+        store.isLoading = false;
       },
       run(...args) {
         const promise = thunk(...args)(

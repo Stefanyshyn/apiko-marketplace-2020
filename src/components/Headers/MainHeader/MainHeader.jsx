@@ -18,6 +18,7 @@ import {
 import { useStore } from '../../../stores/createStore';
 import { observer } from 'mobx-react';
 import { useLatestProductsStore } from '../../../stores/Products/LatestProdutsStore';
+import { getRoot } from 'mobx-state-tree';
 
 const MainHeader = ({ isSell, isSavedProducts, children }) => {
   const store = useStore();
@@ -29,6 +30,7 @@ const MainHeader = ({ isSell, isSavedProducts, children }) => {
   const [isOpen, setOpen] = useState(false);
   const onClickLogo = useCallback(async () => {
     latestProducts.reset();
+    getRoot(latestProducts).app.setLoadingProgressBar(true);
     await latestProducts.fetchLatest.run({ limit: 30 });
     history.push(routes.productLatest);
     // eslint-disable-next-line react-hooks/exhaustive-deps

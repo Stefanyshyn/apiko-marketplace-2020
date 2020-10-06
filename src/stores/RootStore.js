@@ -4,11 +4,13 @@ import { ViewerStore } from './ViewerStore';
 import api from '../service/api';
 import { EntitiesStore } from './EntitiesStore';
 import { ProductStore } from './Products/ProductStore';
+import { AppStore } from './App/AppStore';
 import SocketApi from '../service/api/SocketApi';
 import { ChatStore } from './Chats/ChatStore';
 
 export const RootStore = t
   .model('RootStore', {
+    app: t.optional(AppStore, {}),
     auth: t.optional(AuthStore, {}),
     viewer: t.optional(ViewerStore, {}),
     entities: t.optional(EntitiesStore, {}),
