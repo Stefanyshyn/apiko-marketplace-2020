@@ -7,6 +7,7 @@ const InputWithHistory = ({
   field,
   setFieldKeywords,
   nameHistory,
+  placeholder,
 }) => {
   const [isOpen, setOpen] = useState(false);
   InputWithHistory.handleClickOutside = () => setOpen(false);
@@ -15,6 +16,7 @@ const InputWithHistory = ({
       <div className={style.DropdownInput}>
         <input
           {...field}
+          placeholder={placeholder}
           className={style.searchByName}
           onFocus={() => setOpen(true)}
         />

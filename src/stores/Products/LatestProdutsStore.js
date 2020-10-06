@@ -8,7 +8,7 @@ import { useStore } from '../createStore';
 export const LatestProductsStore = types
   .model('LatestProductsStore', {
     items: types.array(types.reference(ProductModel)),
-    limit: 30,
+    limit: 10,
     hasNextProduct: true,
     fetchLatest: asyncModel(fetchLatest, false),
     isReset: false,
@@ -43,7 +43,7 @@ function fetchLatest() {
         ? store.setItems(result)
         : store.setItems([
             ...store.items.map((item) => item.id),
-            result,
+            ...result,
           ]);
       store.setHasNextProduct(result.length === store.limit);
       flow.success();

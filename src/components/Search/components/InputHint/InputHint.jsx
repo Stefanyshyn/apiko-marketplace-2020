@@ -16,6 +16,7 @@ const InputHint = ({ onClose, setFieldKeywords, nameHistory }) => {
     hints = hints.slice(0, 6);
 
     setHints((_hints) => hints);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const clearHints = useCallback(() => {

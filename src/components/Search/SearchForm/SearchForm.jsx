@@ -25,10 +25,6 @@ const SearchForm = ({ height }) => {
       nameHistory: nameHistory.keywords,
       hint: values.keywords,
     });
-    await wantedProducts.fetch.run({
-      keywords: values.keywords,
-      location: values.location,
-    });
     const params = {};
     if (values.keywords) params.keywords = values.keywords;
     if (values.location) params.location = values.location;

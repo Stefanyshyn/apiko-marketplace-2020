@@ -15,7 +15,7 @@ export const WantedProductsStore = types
     priceFrom: types.maybe(types.number),
     priceTo: types.maybe(types.number),
 
-    limit: 30,
+    limit: 10,
     isNext: true,
 
     fetch: asyncModel(fetchProducts),
@@ -29,10 +29,10 @@ export const WantedProductsStore = types
       store.isNext = value;
     },
     setPriceFrom(value) {
-      store.priceFrom = value;
+      store.priceFrom = +value;
     },
     setPriceTo(value) {
-      store.priceTo = value;
+      store.priceTo = +value;
     },
   }));
 
@@ -41,7 +41,7 @@ function fetchProducts({ keywords, location }) {
     store.setIsNext(true);
     const { data } = await api.products.getProductsByFilter({
       limit: store.limit,
-      offset: store.items?.length | 0,
+      offset: 0,
       keywords,
       location,
       priceFrom: store.priceFrom,
@@ -57,12 +57,12 @@ function fetchMoreProducts(params) {
   return async function fetchProductsFlow(flow, store) {
     const { data } = await api.products.getProductsByFilter({
       limit: store.limit,
-      offset: store.items?.length | 0,
+      offset: store.items?.length,
       ...params,
     });
     const results = flow.merge(data, ProductCollecitionSchema);
-    if (results !== store.limit) store.setIsNext(false);
+    if (results.length !== store.limit) store.setIsNext(false);
 
-    store.setItems([...store.items, results]);
+    store.setItems([...store.items, ...results]);
   };
 }

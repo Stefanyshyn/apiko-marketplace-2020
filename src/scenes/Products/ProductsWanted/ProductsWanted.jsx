@@ -12,11 +12,10 @@ const ProductsWanted = () => {
   const wantedProduct = useWantedProductStore();
 
   useEffect(() => {
-    if (!wantedProduct.fetch.isLoading)
-      wantedProduct.fetch.run({
-        keywords: params.keywords,
-        location: params.location,
-      });
+    wantedProduct.fetch.run({
+      keywords: params.keywords,
+      location: params.location,
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

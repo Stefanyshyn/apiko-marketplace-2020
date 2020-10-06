@@ -69,6 +69,7 @@ class ProductList extends Component {
   _cellRenderer({ index, key, parent, style }) {
     const { products } = this.props;
     const { columnWidth } = this.state;
+    //    console.log(this.props.products.length, index, this.props.products[index]?.title)
 
     return (
       <CellMeasurer
@@ -145,7 +146,7 @@ class ProductList extends Component {
         ref={this._setMasonryRef}
         scrollTop={this._scrollTop}
         width={width}
-        data={this.props.products}
+        data={products}
         style={{
           display: 'flex',
           justifyContent: 'center',

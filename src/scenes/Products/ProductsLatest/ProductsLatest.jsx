@@ -1,34 +1,25 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import s from './ProductsLatest.module.scss';
 import Spinner from '../../../components/Spinner/Spinner';
 import ProductList from '../../../components/Product/ProductList/ProductListView';
 import { observer } from 'mobx-react';
 import { useLatestProductsStore } from '../../../stores/Products/LatestProdutsStore';
 import { ProgressBar } from 'react-bootstrap';
-const limit = 20;
 
 function ProductsLatest() {
-  const [from, setFrom] = useState(undefined);
-
   const latestProducts = useLatestProductsStore();
   const products = latestProducts.items;
   const isNextProductsLoading = latestProducts.fetchLatest.isLoading;
 
   useEffect(() => {
-    latestProducts.fetchLatest.run({ limit, from });
+    latestProducts.fetchLatest.run();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [from]);
+  }, []);
 
-  const loadNextProduct = useCallback(async () => {
-    if (products?.length !== 0)
-      setFrom(products[products?.length - 1].id);
-    await latestProducts.fetchLatest({ from: from, limit });
+  const loadMoreItems = useCallback(async () => {
+    await latestProducts.fetchLatest.run();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [from]);
-
-  const loadMoreItems = isNextProductsLoading
-    ? () => {}
-    : loadNextProduct;
+  }, []);
 
   return (
     <div className={s.container}>
@@ -46,7 +37,7 @@ function ProductsLatest() {
           // hasNextProducts={hasNextProducts}
           hasNextProducts={true}
           isNextProductsLoading={isNextProductsLoading}
-          loadNextProduct={loadNextProduct}
+          loadNextProduct={loadMoreItems}
         />
       ) : (
         ''
