@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import s from './ProductsWanted.module.scss';
 import Spinner from '../../../components/Spinner/Spinner';
 import ProductList from '../../../components/Product/ProductList/ProductListView';
-import SortForm from '../../../components/Search/SortForm/SortFormView';
+import SortForm from '../../../components/Search/SortForm/SortForm';
 import { useWantedProductStore } from '../../../stores/Products/WantedProductsStore';
 import { useParams } from 'react-router-dom';
 import { observer } from 'mobx-react';

@@ -3,7 +3,7 @@ import s from './Home.module.scss';
 import MainHeader from '../../components/Headers/MainHeader/MainHeader';
 import Footer from '../../components/Footer/Footer';
 import { v4 } from 'uuid';
-import SearchForm from '../../components/Search/SearchForm/SearchFormView';
+import SearchForm from '../../components/Search/SearchForm/SearchForm';
 import { Switch, Route } from 'react-router-dom';
 import ProductView from '../Products/Product/ProductView';
 import { routes } from '../router';

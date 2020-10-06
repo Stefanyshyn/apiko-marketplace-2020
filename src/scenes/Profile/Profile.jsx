@@ -5,7 +5,7 @@ import s from './Profile.module.scss';
 import MainHeader from '../../components/Headers/MainHeader/MainHeader';
 import Footer from '../../components/Footer/Footer';
 
-import SearchForm from '../../components/Search/SearchForm/SearchFormView';
+import SearchForm from '../../components/Search/SearchForm/SearchForm';
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import Tab from '../../components/Tab/Tab';
 import Avatar from '../../components/Avatar/Avatar';

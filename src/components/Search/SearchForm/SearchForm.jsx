@@ -6,10 +6,11 @@ import { observer } from 'mobx-react';
 import style from './SearchForm.module.scss';
 import Icon from '../../../atom/Icon/Icon';
 import yup from '../../../utils/yup';
-import InputWithHistoryView from '../components/InputWithHistory/InputWithHistory';
+import InputWithHistory from '../components/InputWithHistory/InputWithHistory';
 import { inputHints } from '../../../service/localStorage';
 import { useWantedProductStore } from '../../../stores/Products/WantedProductsStore';
 import { routes } from '../../../scenes/router';
+
 const nameHistory = {
   keywords: 'input-keywords',
 };
@@ -69,10 +70,8 @@ const SearchForm = ({ height }) => {
           autoComplete="off"
         >
           <div className={style.searchByNameContainer}>
-            <InputWithHistoryView
+            <InputWithHistory
               nameHistory={nameHistory.keywords}
-              name="keywords"
-              className={style.searchByName}
               placeholder="Search products by name"
               field={formik.getFieldProps('keywords')}
               setFieldKeywords={formik.setFieldValue.bind(

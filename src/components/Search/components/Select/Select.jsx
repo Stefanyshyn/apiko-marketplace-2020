@@ -1,12 +1,12 @@
 import React from 'react';
 import s from './Select.module.scss';
-import Icon from '../../../../atom/Icon/Icon';
 import {
   DropdownToggle,
   DropdownItem,
   DropdownMenu,
   UncontrolledDropdown,
 } from 'reactstrap';
+import Icon from '../../../../atom/Icon/Icon';
 
 const Select = () => {
   return (

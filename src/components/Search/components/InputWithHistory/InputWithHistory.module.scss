@@ -1,13 +1,26 @@
+.container{
+    position: relative;
+}
 .DropdownInput{
     width: 100%;
     margin: 0 !important;
     padding: 0 !important;
 }
 .DropdownInputMenu{
+    position: absolute;
+    z-index: 1000;
     min-height: 0px !important;
     height: auto !important;
     width: 100%;
     margin: 0 !important;
     padding: 0 !important;
     right: 0 !important;
+}
+.searchByName{
+    height: 50px;
+    width: 100% !important;
+
+    padding-left: 30px;
+    background: #FFFFFF;
+    border-radius: 4px;
 }

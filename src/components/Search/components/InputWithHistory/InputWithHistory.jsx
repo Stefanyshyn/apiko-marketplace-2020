@@ -1,30 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import style from './InputWithHistory.module.scss';
-import {
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-} from 'reactstrap';
-import InputHints from '../InputHint/InputHintContainer';
-const InputWithHistoryView = ({
+import InputHints from '../InputHint/InputHint';
+import onClickOutside from 'react-onclickoutside';
+
+const InputWithHistory = ({
   field,
   setFieldKeywords,
   nameHistory,
-  ...props
 }) => {
+  const [isOpen, setOpen] = useState(false);
+  InputWithHistory.handleClickOutside = () => setOpen(false);
   return (
-    <UncontrolledDropdown>
-      <DropdownToggle className={style.DropdownInput}>
-        <input {...field} {...props} />
-      </DropdownToggle>
-      <DropdownMenu className={style.DropdownInputMenu}>
+    <div className={style.container}>
+      <div className={style.DropdownInput}>
+        <input
+          {...field}
+          className={style.searchByName}
+          onFocus={() => setOpen(true)}
+        />
+      </div>
+      <div
+        className={style.DropdownInputMenu}
+        style={{ visibility: isOpen ? 'visible' : 'hidden' }}
+      >
         <InputHints
+          onClose={() => setOpen(false)}
           setFieldKeywords={setFieldKeywords}
           nameHistory={nameHistory}
         />
-      </DropdownMenu>
-    </UncontrolledDropdown>
+      </div>
+    </div>
   );
 };
+InputWithHistory.prototype = {};
+const clickOutsideConfig = {
+  handleClickOutside: () => InputWithHistory.handleClickOutside,
+};
 
-export default InputWithHistoryView;
+export default onClickOutside(InputWithHistory, clickOutsideConfig);
