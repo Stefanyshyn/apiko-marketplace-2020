@@ -41,8 +41,12 @@ const auth = {
     }
   },
 
-  async register(body) {
-    return axios.post(urls.register, body);
+  async register(email, fullName, password) {
+    return axios.post(urls.register, {
+      email,
+      fullName,
+      password,
+    });
   },
 
   async login(body) {

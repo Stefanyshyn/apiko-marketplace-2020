@@ -1,62 +1,66 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import style from './RegisterForm.module.scss';
-
+import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { Formik } from 'formik';
-import Y from '../../../utils/yup';
-import PasswordInput from '../components/PasswordInput/PasswordInput';
-import ErrorInput from '../components/Error/ErrorInput';
-import Input from '../components/Input/Input';
-import ErrorForm from '../components/Error/ErrorForm';
-import SubmiButton from '../../SubmiButton/SubmiButton';
+import confirm from 'reactstrap-confirm';
 
-const RegisterFormComponent = (props) => {
-  const {
-    onSubmit,
-    changeEmail,
-    changeFullName,
-    changePassword,
-    handleReset,
+import Y from '../../../../utils/yup';
+import SubmiButton from '../../../../components/SubmiButton/SubmiButton';
+import { useStore } from '../../../../stores/createStore';
+import { routes } from '../../../router';
+import Input from '../../../../components/Form/components/Input/Input';
+import ErrorInput from '../../../../components/Form/components/Error/ErrorInput';
+import PasswordInput from '../../../../components/Form/components/PasswordInput/PasswordInput';
+import ErrorForm from '../../../../components/Form/components/Error/ErrorForm';
 
-    email,
-    fullName,
-    password,
+const RegisterForm = () => {
+  const register = useStore((store) => store.auth.register);
+  const history = useHistory();
+  const onSubmit = useCallback(async () => {
+    await register.registerFlow.run();
+    if (!register.registerFlow.isError) {
+      history.push(routes.signUp);
+      toast.success('Register Successful');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    isLoading,
-    isError,
-    errorMessage,
-  } = props;
-
-  const validationSchema = Y.object({
-    email: Y.string()
-      .email('Invalid email address')
-      .required('Enter email address'),
-    fullname: Y.string().required('Enter fullname'),
-    password: Y.string()
-      .min(8, 'Password must contain at least 8 characters \t')
-      .required('Enter password'),
-    repeatPassword: Y.string()
-      .equalTo(Y.ref('password'), 'Passwords must match')
-      .required('Enter repeat password'),
-  });
-
+  const handleReset = async (resetForm) => {
+    let result = await confirm({
+      message: 'Reset?',
+      confirmText: 'Confirm',
+      confirmColor: 'warning',
+      cancelColor: 'link text-danger',
+    });
+    if (result) {
+      register.reset();
+      resetForm();
+    }
+  };
+  const { registerFlow } = register;
   return (
     <Formik
       initialValues={{
-        email: email,
-        fullname: fullName,
-        password: password,
+        email: register.email,
+        fullname: register.fullname,
+        password: register.password,
         repeatPassword: '',
       }}
       enableReinitialize={true}
-      validationSchema={validationSchema}
-      onSubmit={(values) => {
-        let body = {
-          fullName: values.fullname,
-          email: values.email,
-          password: values.password,
-        };
-        onSubmit(body);
-      }}
+      validationSchema={Y.object({
+        email: Y.string()
+          .email('Invalid email address')
+          .required('Enter email address'),
+        fullname: Y.string().required('Enter fullname'),
+        password: Y.string()
+          .min(8, 'Password must contain at least 8 characters \t')
+          .required('Enter password'),
+        repeatPassword: Y.string()
+          .equalTo(Y.ref('password'), 'Passwords must match')
+          .required('Enter repeat password'),
+      })}
+      onSubmit={onSubmit}
     >
       {(formik) => (
         <form
@@ -78,7 +82,7 @@ const RegisterFormComponent = (props) => {
               field={{
                 ...formik.getFieldProps('email'),
                 onChange: (event) => {
-                  changeEmail(event.target.value);
+                  register.setEmail(event.target.value);
                   formik.handleChange(event);
                 },
               }}
@@ -96,7 +100,7 @@ const RegisterFormComponent = (props) => {
               field={{
                 ...formik.getFieldProps('fullname'),
                 onChange: (event) => {
-                  changeFullName(event.target.value);
+                  register.setFullname(event.target.value);
                   formik.handleChange(event);
                 },
               }}
@@ -113,7 +117,7 @@ const RegisterFormComponent = (props) => {
               field={{
                 ...formik.getFieldProps('password'),
                 onChange: (event) => {
-                  changePassword(event.target.value);
+                  register.setPassword(event.target.value);
                   formik.handleChange(event);
                 },
               }}
@@ -134,19 +138,17 @@ const RegisterFormComponent = (props) => {
               <ErrorInput msg={formik.errors.repeatPassword} />
             ) : null}
           </div>
-          {isError ? (
+          {registerFlow.isError ? (
             <ErrorForm>
-              {(
-                errorMessage.response.data.error[0] + ''
-              ).toUpperCase() +
-                errorMessage.response.data.error.slice(1)}
+              {registerFlow.err[0]?.toUpperCase() |
+                ('' + registerFlow.err.slice(1))}
             </ErrorForm>
           ) : (
             ''
           )}
           <SubmiButton
             style={{ marginTop: '16px' }}
-            isLoading={isLoading}
+            isLoading={registerFlow.isLoading}
             value="Continue"
           />
         </form>
@@ -155,4 +157,4 @@ const RegisterFormComponent = (props) => {
   );
 };
 
-export default RegisterFormComponent;
+export default RegisterForm;
