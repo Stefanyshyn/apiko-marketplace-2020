@@ -26,6 +26,7 @@ const InputWithHistory = ({
         style={{ visibility: isOpen ? 'visible' : 'hidden' }}
       >
         <InputHints
+          filterValue={field.value.trim()}
           onClose={() => setOpen(false)}
           setFieldKeywords={setFieldKeywords}
           nameHistory={nameHistory}

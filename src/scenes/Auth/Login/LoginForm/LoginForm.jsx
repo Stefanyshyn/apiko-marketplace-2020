@@ -20,7 +20,7 @@ const LoginForm = function () {
   const history = useHistory();
   const login = useLogin();
 
-  const handleReset = async (resetForm) => {
+  const handleReset = useCallback(async (resetForm) => {
     let result = await confirm({
       message: 'Reset?',
       confirmText: 'Confirm',
@@ -31,14 +31,16 @@ const LoginForm = function () {
       login.reset();
       resetForm();
     }
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onSubmit = useCallback(async () => {
     await login.loginFlow.run();
-    if (!loginFlow.isError) {
+    if (!login.loginFlow.isError) {
       history.push(routes.home);
       toast.success('Login Successful');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const { loginFlow } = login;
