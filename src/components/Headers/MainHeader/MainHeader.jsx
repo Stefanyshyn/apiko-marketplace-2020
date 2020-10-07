@@ -32,11 +32,15 @@ const MainHeader = ({ isSell, isSavedProducts, children }) => {
           <Logo theme="light" />
           <NavbarToggler className="navbar-dark" onClick={toggle} />
           <Collapse isOpen={isOpen} navbar className={s.layoutLeft}>
-            <NavItem>
-              <Link className={s.inbox} to={routes.inbox}>
-                <Icon name="inbox" width="18px" height="18px" />
-              </Link>
-            </NavItem>
+            {user ? (
+              <NavItem>
+                <Link className={s.inbox} to={routes.inbox}>
+                  <Icon name="inbox" width="18px" height="18px" />
+                </Link>
+              </NavItem>
+            ) : (
+              ''
+            )}
             <NavItem>
               <div className={s.layoutMenu}>
                 {isSell ? (
@@ -77,7 +81,7 @@ const MainHeader = ({ isSell, isSavedProducts, children }) => {
                     width="20px"
                     height="18.61px"
                   />
-                ) : (
+                ) : user ? (
                   <Link to={routes.savedProducts}>
                     <Icon
                       className={s.layoutHeeartIcon}
@@ -86,6 +90,8 @@ const MainHeader = ({ isSell, isSavedProducts, children }) => {
                       height="18.61px"
                     />
                   </Link>
+                ) : (
+                  ''
                 )}
               </div>
             </NavItem>

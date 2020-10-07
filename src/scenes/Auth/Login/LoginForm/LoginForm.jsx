@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import style from './LoginForm.module.scss';
 import confirm from 'reactstrap-confirm';
 import { Formik } from 'formik';
@@ -19,9 +19,6 @@ import { useLogin } from '../../../../stores/auth/LoginStore';
 const LoginForm = function () {
   const history = useHistory();
   const login = useLogin();
-  const email = login.email;
-  const password = login.password;
-  const { isError, isLoading } = login.loginFlow;
 
   const handleReset = async (resetForm) => {
     let result = await confirm({
@@ -36,22 +33,21 @@ const LoginForm = function () {
     }
   };
 
-  async function onSubmit({ email, password }) {
-    await login.loginFlow.run({ email, password });
-    if (!login.loginFlow.isError) {
-      history.push(routes.signUp);
+  const onSubmit = useCallback(async () => {
+    await login.loginFlow.run();
+    if (!loginFlow.isError) {
+      history.push(routes.home);
       toast.success('Login Successful');
     }
-    if (isError) {
-      login.reset();
-      history.push(routes.home);
-    }
-  }
+  }, []);
+
+  const { loginFlow } = login;
+
   return (
     <Formik
       initialValues={{
-        email: email,
-        password: password,
+        email: login.email,
+        password: login.password,
       }}
       enableReinitialize={true}
       validationSchema={Y.object({
@@ -62,13 +58,7 @@ const LoginForm = function () {
           .min(8, 'Password must contain at least 8 characters')
           .required('Enter password'),
       })}
-      onSubmit={async (values) => {
-        const body = {
-          email: values.email,
-          password: values.password,
-        };
-        onSubmit(body);
-      }}
+      onSubmit={onSubmit}
     >
       {(formik) => (
         <form
@@ -118,14 +108,14 @@ const LoginForm = function () {
           <div className={style.loginFormForgetPassword}>
             Don't remember password?
           </div>
-          {isError ? (
+          {loginFlow.isError ? (
             <ErrorForm>Invalid email/password combination</ErrorForm>
           ) : (
             ''
           )}
           <SubmiButton
             style={{ marginTop: '16px' }}
-            isLoading={isLoading}
+            isLoading={loginFlow.isLoading}
             value="Save"
           />
         </form>

@@ -49,8 +49,8 @@ const auth = {
     });
   },
 
-  async login(body) {
-    return axios.post(urls.login, body);
+  async login(email, password) {
+    return axios.post(urls.login, { email, password });
   },
 
   logout() {
