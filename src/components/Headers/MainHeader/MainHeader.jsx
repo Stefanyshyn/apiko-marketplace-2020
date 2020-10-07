@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import s from './MainHeader.module.scss';
@@ -8,33 +8,18 @@ import Icon from '../../../atom/Icon/Icon';
 import Dropdown from '../components/Dropdown/Dropdown';
 
 import { routes } from '../../../scenes/router';
-import {
-  NavbarBrand,
-  Navbar,
-  NavbarToggler,
-  Collapse,
-  NavItem,
-} from 'reactstrap';
+import { Navbar, NavbarToggler, Collapse, NavItem } from 'reactstrap';
 import { useStore } from '../../../stores/createStore';
 import { observer } from 'mobx-react';
-import { useLatestProductsStore } from '../../../stores/Products/LatestProdutsStore';
-import { getRoot } from 'mobx-state-tree';
+import Logo from '../components/Logo/Logo';
 
 const MainHeader = ({ isSell, isSavedProducts, children }) => {
   const store = useStore();
   const user = store.viewer.user;
   const isUser = !!user;
   const logout = useStore((store) => store.auth.logout);
-  const history = useHistory();
-  const latestProducts = useLatestProductsStore();
   const [isOpen, setOpen] = useState(false);
-  const onClickLogo = useCallback(async () => {
-    latestProducts.reset();
-    getRoot(latestProducts).app.setLoadingProgressBar(true);
-    await latestProducts.fetchLatest.run({ limit: 30 });
-    history.push(routes.productLatest);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   const toggle = useCallback(() => {
     setOpen(!isOpen);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -44,15 +29,7 @@ const MainHeader = ({ isSell, isSavedProducts, children }) => {
     <header className={s.wrap}>
       <div className={s.up}>
         <Navbar light expand="md" className={s.navContainer}>
-          <NavbarBrand to={routes.home} className={s.layoutLogo}>
-            <div onClick={onClickLogo}>
-              <Icon
-                className={s.logoIcon}
-                name="logoLight"
-                size="102px"
-              />
-            </div>
-          </NavbarBrand>
+          <Logo theme="light" />
           <NavbarToggler className="navbar-dark" onClick={toggle} />
           <Collapse isOpen={isOpen} navbar className={s.layoutLeft}>
             <NavItem>

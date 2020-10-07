@@ -1,22 +1,15 @@
 import React, { useState } from 'react';
-import { Link, useLocation, useHistory } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.css';
 import s from './AuthHeader.module.scss';
-
-import Icon from '../../../atom/Icon/Icon';
 import { routes } from '../../../scenes/router';
-import {
-  NavbarBrand,
-  Navbar,
-  NavbarToggler,
-  Collapse,
-  NavItem,
-} from 'reactstrap';
+import { Navbar, NavbarToggler, Collapse, NavItem } from 'reactstrap';
+import Logo from '../components/Logo/Logo';
 
 const AuthHeader = ({ isLoginForm }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   let location = useLocation();
-  let history = useHistory();
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -24,19 +17,7 @@ const AuthHeader = ({ isLoginForm }) => {
     <header className={s.wrapper}>
       <div className={s.container}>
         <Navbar light expand="md">
-          <NavbarBrand
-            to={routes.home}
-            className={s.layoutLogo}
-            onClick={() => {
-              history.push(routes.home);
-            }}
-          >
-            <Icon
-              className={s.layoutLogoIcon}
-              name="logo"
-              size="102px"
-            />
-          </NavbarBrand>
+          <Logo theme="black" />
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} className={s.layoutLeft} navbar>
             <NavItem>
