@@ -1,18 +1,20 @@
 import React from 'react';
-import confirm from 'reactstrap-confirm';
 import style from './LoginForm.module.scss';
+import confirm from 'reactstrap-confirm';
 import { Formik } from 'formik';
-import * as Y from 'yup';
+import { toast } from 'react-toastify';
 import { observer } from 'mobx-react';
-import PasswordInput from '../../../../../components/Form/components/PasswordInput/PasswordInput';
-import ErrorInput from '../../../../../components/Form/components/Error/ErrorInput';
-import Input from '../../../../../components/Form/components/Input/Input';
-import ErrorForm from '../../../../../components/Form/components/Error/ErrorForm';
-import SubmiButton from '../../../../../components/SubmiButton/SubmiButton';
-import 'mobx-react/batchingForReactDom';
+import * as Y from 'yup';
 import { useHistory } from 'react-router-dom';
-import { routes } from '../../../../router';
-import { useLogin } from '../../../../../stores/auth/LoginStore';
+
+import PasswordInput from '../../../../components/Form/components/PasswordInput/PasswordInput';
+import ErrorInput from '../../../../components/Form/components/Error/ErrorInput';
+import Input from '../../../../components/Form/components/Input/Input';
+import ErrorForm from '../../../../components/Form/components/Error/ErrorForm';
+import SubmiButton from '../../../../components/SubmiButton/SubmiButton';
+import 'mobx-react/batchingForReactDom';
+import { routes } from '../../../router';
+import { useLogin } from '../../../../stores/auth/LoginStore';
 
 const LoginForm = function () {
   const history = useHistory();
@@ -36,6 +38,10 @@ const LoginForm = function () {
 
   async function onSubmit({ email, password }) {
     await login.loginFlow.run({ email, password });
+    if (!login.loginFlow.isError) {
+      history.push(routes.signUp);
+      toast.success('Login Successful');
+    }
     if (isError) {
       login.reset();
       history.push(routes.home);
